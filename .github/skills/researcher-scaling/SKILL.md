@@ -7,7 +7,13 @@ user-invocable: true
 
 # Researcher Scaling
 
-Use this skill when the leader needs to adjust the number of supporting research agents for an internal request.
+Use this skill when the main Researcher needs to estimate support demand and when the Leader needs to enact the approved supporting-researcher shape for an internal request.
+
+## Responsibility Split
+
+- Researcher owns payload estimation and the recommendation for zero, one, or two supporting researchers.
+- Leader owns the approval, actual activation or deactivation, and `agents` list synchronization.
+- Treat the skill as incomplete if the recommendation exists but the Leader has not enacted or rejected it explicitly.
 
 ## When to Scale Up
 
@@ -40,21 +46,30 @@ Use this skill when the leader needs to adjust the number of supporting research
 5. Keep Researcher as the required base agent and use `ceil(estimated_payload / 70000)` only to decide whether supporting subresearchers are justified.
 6. If the result is high but the scope can be partitioned into phases, prefer staged research over unnecessary parallel slices.
 
+## Recommendation Procedure
+
+1. Start with Researcher as the only active research-stage owner unless an existing request already has approved support capacity.
+2. Have Researcher identify the likely local and external research corpus with repository heuristics.
+3. Have Researcher estimate token demand and decide whether zero, one, or two supporting researchers are justified.
+4. Record the recommendation and rationale in research1.md so the Leader can review it.
+5. If the recommendation is ambiguous, prefer staged research over premature parallel activation.
+
 ## Scale-Up Procedure
 
 1. Keep .github/agents/researcher.agent.md as the mandatory research-stage owner.
-2. Activate .github/agents/subresearcher-01.agent.md as the first supporting file when a second research slice is justified.
-3. Activate .github/agents/subresearcher-02.agent.md as the second supporting file only when a third slice is justified.
-4. Assign distinct artifact targets such as research2.md and research3.md.
-5. Ensure each supporting researcher stays user-invocable: false.
-6. Add the active supporting researchers' frontmatter names to the `agents` list in .github/agents/leader.agent.md.
-7. Give each supporting researcher a clearly separated scope so their artifacts do not collapse into the same context slice.
-8. Require the main Researcher to synthesize supporting artifacts into the final research handoff.
+2. Require Researcher to recommend scale-up before Leader activates support capacity.
+3. Activate .github/agents/subresearcher-01.agent.md as the first supporting file when the recommendation justifies a second research slice.
+4. Activate .github/agents/subresearcher-02.agent.md as the second supporting file only when the recommendation justifies a third slice.
+5. Assign distinct artifact targets such as research2.md and research3.md.
+6. Ensure each supporting researcher stays user-invocable: false.
+7. Add the active supporting researchers' frontmatter names to the `agents` list in .github/agents/leader.agent.md.
+8. Give each supporting researcher a clearly separated scope so their artifacts do not collapse into the same context slice.
+9. Require the main Researcher to synthesize supporting artifacts into the final research handoff.
 
 ## Scale-Down Procedure
 
-1. Identify which supporting researchers are no longer needed.
-2. Confirm their assigned scopes are already captured in existing research artifacts and the main Researcher synthesis.
+1. Have Researcher recommend scale-down when overlap or shrinking scope makes support capacity unnecessary.
+2. Confirm the supporting slices are already captured in existing research artifacts and the main Researcher synthesis.
 3. Remove the retired supporting researcher's frontmatter name from the `agents` list in .github/agents/leader.agent.md.
 4. Keep .github/agents/researcher.agent.md as the base researcher definition.
 5. Preserve any completed research artifacts even if a supporting researcher is deactivated.
@@ -78,7 +93,8 @@ Use this procedure every time the active researcher pool changes.
 ## Guardrails
 
 - Do not change the base mission of the main Researcher role.
-- Only the leader manages supporting researcher count.
+- Only the Leader enacts supporting researcher count changes.
+- Only the main Researcher recommends supporting researcher count changes.
 - Keep supporting researcher descriptions specific enough for delegation and discovery.
 - Avoid activating more supporting researchers than the request can actually use.
 - Treat supporting researcher activation or removal as incomplete until the leader `agents` list is synchronized.

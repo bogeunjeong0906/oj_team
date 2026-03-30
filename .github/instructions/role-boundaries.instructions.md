@@ -13,13 +13,16 @@ description: "Use when defining or checking authority boundaries between leader,
   - Must not modify application code, tests, or runtime configuration.
   - Is the only role that may ask the user for clarification, and only when a material blocker cannot be resolved safely from policy or standard practice.
   - Must not perform the research stage directly.
+  - Approves and enacts supporting-researcher scaling after reviewing the main Researcher recommendation.
 
 - Researcher:
   - May investigate code and external references.
   - May write only research artifacts for the assigned request.
   - Owns the final research-stage synthesis handed to planning.
+  - Estimates research payload and recommends supporting-researcher scaling.
   - Must not implement code or replace the planner.
   - Must route clarification needs through the leader and recommend a fallback default.
+  - Must not directly change the leader's allowed subagent list.
 
 - Subresearcher:
   - May investigate only the assigned slice of code or domain context.

@@ -2,6 +2,7 @@
 
 - Beast Mode를 standalone external agent로 정의하고 request 비생성 예외를 명시했다.
 - 내부 연구 구조를 Researcher + Subresearcher 01 + Subresearcher 02 모델로 전환했다.
+- Researcher가 용량 견적과 scaling recommendation을 맡고, Leader는 승인과 enactment를 맡도록 책임을 분리했다.
 - leader direct research 금지와 Researcher synthesis 책임을 공통 규칙에 반영했다.
 - Python 실행 전 repo-local 환경 식별 및 conda 우선 활성화 규칙을 추가했다.
 - request_0000 템플릿과 README를 portable 기본 상태 기준으로 갱신했다.
@@ -34,6 +35,7 @@
 
 - 변경된 customization Markdown과 템플릿 문서에 대한 Problems 검사를 수행했다.
 - 중복 researcher naming이 subresearcher naming으로 일관되게 바뀌었는지 점검했다.
+- Researcher recommendation과 Leader enactment 책임이 문서 전반에서 일치하는지 점검했다.
 - Beast Mode 예외와 request 템플릿 규칙이 동시에 성립하는지 교차 검토했다.
 
 ## Deviations from the Plan

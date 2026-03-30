@@ -27,11 +27,11 @@ Follow these resources:
 3. If a new request is needed, create the next active request folder using the canonical naming scheme.
 4. Create or update the canonical artifact set for the active request.
 5. Run context preflight before broad research or request creation work.
-6. Estimate the research payload with Linux commands before assigning researchers.
-7. Always assign [Researcher](../agents/researcher.agent.md) as the research-stage owner.
-8. If a broader scope justifies parallel research, activate [subresearcher-01.agent.md](../agents/subresearcher-01.agent.md) and then [subresearcher-02.agent.md](../agents/subresearcher-02.agent.md) in that order.
+6. Always assign [Researcher](../agents/researcher.agent.md) as the research-stage owner for the kickoff step.
+7. Have Researcher estimate the research payload and recommend whether supporting subresearchers are needed.
+8. If the Researcher recommendation justifies broader parallel research, activate [subresearcher-01.agent.md](../agents/subresearcher-01.agent.md) and then [subresearcher-02.agent.md](../agents/subresearcher-02.agent.md) in that order.
 9. If the active research pool changes, update the leader `agents` list to match the active subresearcher files.
-10. Prepare research1.md for the main Researcher synthesis and add research2.md or research3.md only when subresearchers are needed.
+10. Prepare research1.md for the main Researcher synthesis and add research2.md or research3.md only when subresearchers are approved.
 11. Return an execution ledger that lets the user identify which work was done by the leader and which was delegated.
 
 ## Output

@@ -7,6 +7,7 @@
 - Beast Mode가 request 비생성 예외로 agents와 README에 모두 반영되었다.
 - leader.agent.md와 orchestration.instructions.md가 leader direct research 금지를 같은 방향으로 설명한다.
 - subresearcher naming과 request_0000 research1/2/3 템플릿이 일치한다.
+- Researcher recommendation과 Leader enactment의 책임 분리가 agents, skills, README에서 같은 방향으로 설명된다.
 
 ## Tests or Checks Considered
 

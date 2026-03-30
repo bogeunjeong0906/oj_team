@@ -1,6 +1,6 @@
 # Summary
 
-공식 템플릿 request의 핵심 목표는 Beast Mode와 내부 Leader 팀을 분리된 운영 계층으로 유지하는 것이다. Beast Mode는 단독 에이전트이므로 활성 request를 만들지 않고, request artifact는 내부 팀 워크플로우의 전용 구조로 남겨야 한다.
+공식 템플릿 request의 핵심 목표는 Beast Mode와 내부 Leader 팀을 분리된 운영 계층으로 유지하는 것이다. Beast Mode는 단독 에이전트이므로 활성 request를 만들지 않고, request artifact는 내부 팀 워크플로우의 전용 구조로 남겨야 한다. 내부 팀에서는 Researcher가 연구 payload를 먼저 계산하고 Leader가 그 추천을 승인하는 구조가 더 일관적이다.
 
 ## Scope Investigated
 
@@ -28,6 +28,7 @@
 - 내부 팀 request 구조는 여전히 유지되어야 한다.
 - 템플릿은 이식 가능한 기본 상태를 설명해야 한다.
 - 리더는 직접 연구하지 않고 Researcher가 연구 단계를 소유해야 한다.
+- supporting researcher 활성화는 Researcher 추천과 Leader 승인으로 분리되는 편이 역할상 자연스럽다.
 
 ## Risks and Open Questions
 

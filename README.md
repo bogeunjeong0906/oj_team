@@ -72,6 +72,7 @@ docs/
 - Planner가 plan.md를 작성한다.
 - Builder가 구현과 self-review를 담당한다.
 - Reviewer가 필요 시 독립 검토 게이트를 제공한다.
+- Researcher가 연구 payload와 컨텍스트 부담을 먼저 계산하고, Leader는 그 추천을 승인해 실제 지원 연구자를 활성화한다.
 
 ## Request 모델
 
@@ -110,13 +111,14 @@ docs/agent_docs/request_XXXX/
 ### Leader
 
 - 내부 팀의 요청 연속성, context preflight, 검증 게이트, 위임 경로를 관리한다.
-- Researcher와 subresearcher를 조합해 연구 단계를 배치한다.
+- Researcher의 추천을 바탕으로 subresearcher 활성화 여부를 승인하고 반영한다.
 - 직접 연구하지 않는다.
 
 ### Researcher
 
 - 연구 단계의 주인이다.
 - 단독 조사 또는 subresearcher 결과를 합성한 최종 연구 산출물을 만든다.
+- 초기 연구 코퍼스와 컨텍스트 부담을 추정하고 supporting researcher 필요 여부를 추천한다.
 
 ### Subresearcher 01 / 02
 
@@ -142,12 +144,14 @@ docs/agent_docs/request_XXXX/
 2. Beast Mode용이면 request artifact를 만들지 않는다.
 3. 내부 팀용이면 context preflight를 수행한다.
 4. request 재사용 또는 신규 할당을 결정한다.
-5. Researcher를 기본 배치하고 필요 시 subresearcher를 추가한다.
-6. Researcher가 최종 연구 handoff를 정리한다.
-7. Planner가 실행 계획을 만든다.
-8. Builder가 구현, Problems/lint 검증, self-review를 수행한다.
-9. 필요 시 Reviewer가 독립 검토를 수행한다.
-10. Leader가 Execution Ledger와 함께 사용자에게 보고한다.
+5. Researcher를 기본 배치한다.
+6. Researcher가 연구 payload와 supporting researcher 필요 여부를 추천한다.
+7. Leader가 그 추천을 승인해 필요 시 subresearcher를 추가한다.
+8. Researcher가 최종 연구 handoff를 정리한다.
+9. Planner가 실행 계획을 만든다.
+10. Builder가 구현, Problems/lint 검증, self-review를 수행한다.
+11. 필요 시 Reviewer가 독립 검토를 수행한다.
+12. Leader가 Execution Ledger와 함께 사용자에게 보고한다.
 
 ## Python 실행 규칙
 
