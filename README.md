@@ -38,7 +38,8 @@
 ## 2. 폴더 및 파일 구조
 
 - 에이전트 전용 저장공간: docs/agent_docs/
-- Request별 폴더: request_0001/, request_0002/, ...
+- 공식 템플릿 폴더: request_0000/
+- 활성 Request별 폴더: request_0001/, request_0002/, ...
 - 각 request 폴더 기본 파일:
   - research1.md
   - research2.md
@@ -50,6 +51,12 @@
 
 ```text
 docs/agent_docs/
+  ├── request_0000/
+  │   ├── research1.md
+  │   ├── research2.md
+  │   ├── plan.md
+  │   ├── report.md
+  │   └── review.md
   └── request_0001/
       ├── research1.md
       ├── research2.md
@@ -87,19 +94,21 @@ docs/agent_docs/
 - 작업 순서, 대상 파일, 검증 기준, 완료 조건을 명시한다.
 - 계획의 논리적 타당성과 실행 가능성을 점검한다.
 
-### 코더 (Coder)
+### 빌더 (Builder)
 
 - researchN.md와 plan.md를 기준으로 구현한다.
 - 컨텍스트 격리를 엄격하게 유지한다.
 - 계획에 명시된 대상 파일만 찾아 읽고 수정한다.
-- 구현 후 report.md에 변경 내용, 검증 결과, 계획과의 차이를 기록한다.
+- 구현 후 검증과 self-review를 먼저 수행한다.
+- 구현 후 report.md에 변경 내용, 검증 결과, self-review 결과, 계획과의 차이를 기록한다.
 
 ### 리뷰어 (Reviewer)
 
-- plan.md와 report.md를 기준으로 구현 결과를 검토한다.
+- plan.md와 report.md를 기준으로 구현 결과를 독립 시야에서 검토한다.
 - 버그, 회귀 위험, 누락, 테스트 공백을 식별한다.
 - review.md에 findings 중심으로 검토 결과를 남긴다.
 - 원칙적으로 코드를 수정하지 않는다.
+- 모든 작업에 항상 투입되지는 않으며, 고위험 또는 반복 수정 작업에서 우선 사용한다.
 
 ---
 
@@ -109,8 +118,8 @@ docs/agent_docs/
 2. 리더가 프로젝트 규모에 따라 리서처 수를 결정한다.
 3. 리서처가 병렬 또는 순차로 연구를 수행하고 researchN.md를 작성한다.
 4. 플래너가 연구 결과를 종합해 plan.md를 작성한다.
-5. 코더가 plan.md에 따라 구현하고 report.md를 작성한다.
-6. 리뷰어가 구현 결과를 검토하고 review.md를 작성한다.
+5. 빌더가 plan.md에 따라 구현하고 self-review 후 report.md를 작성한다.
+6. 필요할 때 리뷰어가 구현 결과를 독립 검토하고 review.md를 작성한다.
 7. 리더가 산출물을 취합해 사용자에게 보고하고, 필요하면 재연구, 재계획, 재구현을 지시한다.
 
 ---
@@ -118,10 +127,13 @@ docs/agent_docs/
 ## 5. 운영 원칙
 
 - 리더만 사용자와 직접 대화한다.
-- 코더의 컨텍스트는 researchN.md와 plan.md로 엄격하게 제한한다.
+- 빌더의 컨텍스트는 researchN.md와 plan.md로 엄격하게 제한한다.
 - 리더는 문서와 폴더는 수정할 수 있지만 애플리케이션 코드는 수정하지 않는다.
-- 리뷰는 리더가 아니라 리뷰어가 전담한다.
+- 독립 리뷰는 고위험 또는 범위가 넓은 변경에서 우선 적용한다.
 - 리서처 수 조정은 프로젝트 규모, 병렬 조사 필요성, 컨텍스트 예산을 기준으로 결정한다.
+- request_0000은 공식 예시이자 템플릿이며 활성 작업에 사용하지 않는다.
+- 동일한 1차 목표를 계속 다듬는 작은 후속 요청은 같은 request 번호를 재사용한다.
+- 요청 카테고리, 주요 산출물, 대상 서브시스템이 바뀌면 새로운 request 번호를 사용한다.
 - 사용자는 리더 응답만 보고도 각 단계가 리더 직접 수행인지 서브에이전트 수행인지 구분할 수 있어야 한다.
 - 리더는 non-trivial 작업에서 Execution Ledger를 제공해 stage, executor, output, delegation status를 드러낸다.
 - 산출물은 재현 가능하고 다음 단계 에이전트가 바로 사용할 수 있는 형식으로 작성한다.
@@ -137,7 +149,7 @@ docs/agent_docs/
   │   ├── leader.agent.md
   │   ├── researcher.agent.md
   │   ├── planner.agent.md
-  │   ├── coder.agent.md
+  │   ├── builder.agent.md
   │   └── reviewer.agent.md
   ├── instructions/
   │   ├── orchestration.instructions.md
@@ -150,9 +162,15 @@ docs/agent_docs/
       ├── request-artifact-management/
       │   ├── SKILL.md
       │   └── assets/
+        ├── request-id-allocation/
+        │   ├── SKILL.md
+        │   └── assets/
       ├── delegation-visibility/
       │   ├── SKILL.md
       │   └── assets/
+        ├── git-commit-workflow/
+        │   ├── SKILL.md
+        │   └── assets/
       └── researcher-scaling/
           └── SKILL.md
 ```
@@ -166,3 +184,16 @@ docs/agent_docs/
   - `handled directly by leader`
 - ledger에는 최소한 stage, executor, output, note가 포함된다.
 - 리더는 위임이 실제로 완료되지 않았으면 위임 완료처럼 서술하면 안 된다.
+
+## 8. Request 번호 규칙
+
+- request_0000은 공식 템플릿이자 예시다.
+- 활성 작업 번호는 request_0001부터 시작한다.
+- 작은 후속 수정, 누락 보완, 폴리시, 사소한 버그 수정은 같은 request 번호를 재사용한다.
+- 요청 카테고리나 주요 대상이 바뀌면 새 request 번호를 부여한다.
+
+## 9. Git Commit 규칙
+
+- stage와 commit은 사용자가 명시적으로 요청한 경우에만 수행한다.
+- commit 전에는 변경 범위와 관련성 검토가 선행되어야 한다.
+- 비관련 변경이 섞여 있으면 분리하거나 중단한다.

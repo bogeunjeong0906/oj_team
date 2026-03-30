@@ -1,37 +1,36 @@
 # Summary
 
-첫 요청의 목표는 Beast Mode의 실행 성향을 유지하면서 오케스트레이션 가능한 에이전트 팀 구조를 워크스페이스 커스터마이징으로 구축하는 것이다.
+첫 active request의 목표는 위임 가시성, request 번호 재사용 기준, 그리고 Builder-Reviewer 하이브리드 운영 규칙을 실전 운영 기준으로 정교화하는 것이다.
 
 ## Scope Investigated
 
-- 현재 저장소의 루트 구조
-- 기존 Beast Mode 에이전트 파일
-- README에 정의된 협업 워크플로우
-- VS Code custom agents, instructions, skills 구성 방식
+- request_0000 템플릿과 active request 구조
+- Builder-Reviewer 하이브리드 운영 방향
+- request 번호 재사용과 신규 발급 기준
+- git commit workflow를 skill로 분리할 필요성
 
 ## Codebase Facts
 
-- 현재 저장소는 커스터마이징 저장소 역할에 가깝고 애플리케이션 소스는 없다.
-- .github/agents 안에는 beastmode.agent.md가 존재하고, 나머지 오케스트레이션 에이전트는 새로 설계해야 했다.
-- README는 연구, 계획, 실행 중심 구조를 설명하고 있었고 이후 리뷰 단계를 추가하는 방향으로 확장되었다.
-- docs/agent_docs 디렉터리는 아직 존재하지 않았다.
+- docs/agent_docs/request_0000은 공식 예시와 템플릿 역할을 하도록 승격되어야 한다.
+- active work는 request_0001 이상에서만 진행되도록 강제할 필요가 있다.
+- builder와 reviewer를 완전 병합하기보다 Builder self-review와 조건부 independent review를 병행하는 구조가 더 적합하다.
+- 동일 카테고리의 작은 후속 요청은 같은 request 번호 재사용 규칙이 필요하다.
 
 ## External or Domain Facts
 
-- VS Code custom agent는 .github/agents 아래 .agent.md 파일로 정의한다.
-- instructions는 .github/instructions 아래 .instructions.md로 관리한다.
-- skills는 .github/skills/skill-name/SKILL.md 구조를 따른다.
-- agent의 description은 자동 발견과 서브에이전트 위임 품질에 직접 영향을 준다.
+- skills는 반복 가능한 번호 할당, commit, 운영 가드레일 같은 절차형 워크플로우를 담기에 적합하다.
+- custom agents는 서로 다른 시야와 도구 제한이 필요할 때 역할을 분리하는 데 적합하다.
+- subagent orchestration에서는 fresh context를 가진 independent reviewer가 여전히 검증 가치를 가진다.
 
 ## Constraints for Implementation
 
 - beastmode.agent.md는 비상용으로 유지해야 한다.
 - 리더는 edit 권한을 가지되 애플리케이션 코드를 수정하면 안 된다.
-- 코더는 researchN.md와 plan.md 중심으로 엄격한 컨텍스트 격리를 유지해야 한다.
-- 리뷰는 독립 리뷰어가 수행해야 한다.
+- 빌더는 researchN.md와 plan.md 중심으로 엄격한 컨텍스트 격리를 유지해야 한다.
+- 독립 리뷰는 유지하되 모든 후속 수정에 강제하지는 않는 하이브리드가 필요하다.
 
 ## Risks and Open Questions
 
-- request 산출물 구조가 실제 운영 없이 문서만 존재하면 팀이 형식적으로 동작할 수 있다.
-- 리서처 수를 늘릴 때 description과 산출물 대상이 겹치면 역할 분리가 흐려질 수 있다.
-- docs/agent_docs/request_0001를 실제 예시로 남기면 이후 요청 numbering 규칙을 지키기 쉬워진다.
+- request 번호 재사용 기준이 모호하면 리더가 잘못된 새 request를 만들거나 기존 request를 덮어쓸 수 있다.
+- 빌더 self-review만으로 충분한 작업과 독립 리뷰가 필요한 작업을 구분하는 기준이 필요하다.
+- git commit은 사용자 명시 요청 없이는 실행되면 안 된다.

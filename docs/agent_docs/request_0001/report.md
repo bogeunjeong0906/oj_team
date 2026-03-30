@@ -1,37 +1,39 @@
 # Implemented Scope
 
-- 오케스트레이션 팀용 custom agents를 생성했다.
-- 공통 instructions를 생성했다.
-- request artifact 관리 skill과 researcher scaling skill을 생성했다.
-- 첫 request 예시 구조를 docs/agent_docs/request_0001 아래에 생성했다.
-- 리더가 바로 복제할 수 있는 researcher-02.agent.md 예시 파일을 생성했다.
+- delegation-visibility skill을 추가했다.
+- leader agent에 allowed subagent 목록과 Execution Ledger 규칙을 추가했다.
+- orchestration instructions에 stage ownership visibility 원칙을 추가했다.
+- researcher scaling skill에 leader `agents` 목록 동기화 절차를 추가했다.
+- worker agent description을 더 분리해 선택 충돌을 줄였다.
+- create-next-request prompt와 README를 새 규칙에 맞게 갱신했다.
+- request_0002 예시 artifact 세트를 생성했다.
 
 ## Files Changed
 
 - README.md
 - .github/agents/leader.agent.md
 - .github/agents/researcher.agent.md
+- .github/agents/researcher-02.agent.md
 - .github/agents/planner.agent.md
 - .github/agents/coder.agent.md
 - .github/agents/reviewer.agent.md
-- .github/agents/researcher-02.agent.md
 - .github/instructions/orchestration.instructions.md
-- .github/instructions/agent-artifacts.instructions.md
-- .github/instructions/role-boundaries.instructions.md
-- .github/instructions/markdown-docs.instructions.md
-- .github/skills/request-artifact-management/SKILL.md
 - .github/skills/researcher-scaling/SKILL.md
-- docs/agent_docs/request_0001/research1.md
-- docs/agent_docs/request_0001/research2.md
-- docs/agent_docs/request_0001/plan.md
-- docs/agent_docs/request_0001/report.md
-- docs/agent_docs/request_0001/review.md
+- .github/skills/delegation-visibility/SKILL.md
+- .github/skills/delegation-visibility/assets/execution-ledger.template.md
+- .github/skills/delegation-visibility/assets/operator-guide.md
+- .github/prompts/create-next-request.prompt.md
+- docs/agent_docs/request_0002/research1.md
+- docs/agent_docs/request_0002/research2.md
+- docs/agent_docs/request_0002/plan.md
+- docs/agent_docs/request_0002/report.md
+- docs/agent_docs/request_0002/review.md
 
 ## Validation Performed
 
-- README와 새로 만든 agents, instructions, skills 파일에 대해 오류 검사를 수행했다.
-- model frontmatter와 applyTo 형식 오류를 수정했다.
-- Markdown 탭 들여쓰기 문제를 정리했다.
+- customization Markdown 파일과 request_0002 artifact에 대한 오류 검사를 실행했다.
+- leader의 `agents` 목록이 현재 active worker 이름과 일치하도록 설정했다.
+- request_0002가 canonical artifact set을 모두 포함하는지 점검했다.
 
 ## Deviations from the Plan
 
@@ -39,5 +41,4 @@
 
 ## Remaining Issues
 
-- request_0002부터 실제 운영 시 리더가 request numbering과 researcher scaling을 일관되게 관리해야 한다.
-- 현재는 예시 request만 존재하므로 실제 작업 흐름에서 산출물 템플릿의 세부 항목은 보완될 수 있다.
+- 실제 런타임에서 GPT-4.1이 subagent tool을 완전히 안정적으로 사용한다는 보장은 없으므로, 향후 실제 운영 로그를 보고 ledger 규칙을 더 강화할 수 있다.

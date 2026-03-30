@@ -62,7 +62,7 @@ Apply this checklist before the leader ends a non-trivial turn.
 
 ## Allowed Subagent Synchronization Rules
 
-- The leader `agents` frontmatter must always list `Researcher`, `Planner`, `Coder`, and `Reviewer`.
+- The leader `agents` frontmatter must always list `Researcher`, `Planner`, `Builder`, and `Reviewer`.
 - It must also list every active duplicate researcher such as `Researcher 02` or `Researcher 03`.
 - When a duplicate researcher file is created, add its frontmatter name to the leader `agents` list in the same change set.
 - When a duplicate researcher file is removed, remove its frontmatter name from the leader `agents` list in the same change set.

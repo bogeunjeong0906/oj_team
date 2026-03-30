@@ -13,7 +13,7 @@ Use this skill when the leader needs to adjust the number of researcher agents f
 
 - The request spans multiple subsystems.
 - The task needs both codebase research and external domain research.
-- A single researcher artifact would become too broad for the planner or coder.
+- A single researcher artifact would become too broad for the planner or builder.
 - Parallel investigation would materially reduce turnaround time.
 - The estimated research payload exceeds the practical budget of one researcher.
 
@@ -70,7 +70,7 @@ Use this procedure every time the active researcher pool changes.
   - `Researcher`
   - every active duplicate researcher such as `Researcher 02` or `Researcher 03`
   - `Planner`
-  - `Coder`
+  - `Builder`
   - `Reviewer`
 4. Remove stale researcher names from the leader `agents` list when their files are removed.
 5. Do not add file paths to the `agents` list. Use frontmatter names only.

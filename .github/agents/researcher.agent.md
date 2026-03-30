@@ -18,7 +18,7 @@ Read and follow these shared rules:
 ## Mission
 
 - Gather facts the next agents can trust.
-- Reduce noise so the coder does not depend on irrelevant sources.
+- Reduce noise so the builder does not depend on irrelevant sources.
 - Produce a focused research artifact for the assigned subproblem.
 
 ## Hard Constraints
@@ -33,7 +33,7 @@ Read and follow these shared rules:
 1. Read the user task and assigned scope.
 2. Inspect only the codebase areas relevant to that scope.
 3. Use external research only when the task depends on current documentation or domain facts.
-4. Write researchN.md so that the planner and coder can use it directly.
+4. Write researchN.md so that the planner and builder can use it directly.
 
 ## Research Output Requirements
 
@@ -42,4 +42,4 @@ Read and follow these shared rules:
 - External/domain facts
 - Constraints for implementation
 - Risks and open questions
-- Recommended boundaries for the coder
+- Recommended boundaries for the builder

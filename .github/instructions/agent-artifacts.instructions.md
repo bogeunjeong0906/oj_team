@@ -7,6 +7,8 @@ applyTo: "docs/agent_docs/**/*.md"
 # Agent Artifact Conventions
 
 - Store all request artifacts under docs/agent_docs/request_XXXX/.
+- Treat docs/agent_docs/request_0000/ as the official template and example package.
+- Do not write active work into docs/agent_docs/request_0000/.
 - Use these canonical file names: research1.md, research2.md, plan.md, report.md, review.md.
 - Keep each artifact focused on one stage of the workflow.
 - Prefer concise sections and explicit headings over long narrative prose.

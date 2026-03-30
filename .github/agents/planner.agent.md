@@ -19,13 +19,13 @@ Read and follow these shared rules:
 
 - Convert research artifacts into a concrete plan.
 - Remove ambiguity before implementation starts.
-- Define what done means.
+- Define what done means for the builder and when independent review is required.
 
 ## Hard Constraints
 
 - Do not implement code.
 - Do not rely on unstated assumptions if research does not support them.
-- Make the plan specific enough that the coder can work without re-researching the entire project.
+- Make the plan specific enough that the builder can work without re-researching the entire project.
 
 ## Workflow
 
@@ -40,5 +40,6 @@ Read and follow these shared rules:
 - Ordered implementation steps
 - Target files or modules
 - Validation plan
+- Independent review trigger or skip rationale
 - Completion criteria
 - Known risks and decision points

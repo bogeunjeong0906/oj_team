@@ -48,4 +48,4 @@ Read and follow these shared rules:
 - External or domain facts when needed
 - Constraints for implementation
 - Risks and open questions
-- Recommended boundaries for the coder
+- Recommended boundaries for the builder
