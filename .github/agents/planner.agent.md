@@ -1,6 +1,6 @@
 ---
 name: Planner
-description: "Use when converting researchN.md artifacts into an executable implementation plan with ordered steps, target files, validation criteria, and completion conditions."
+description: "Use when converting researchN.md artifacts into a concrete plan.md with ordered implementation steps, target files, validation criteria, and completion conditions."
 tools: [read, search, edit]
 user-invocable: false
 ---

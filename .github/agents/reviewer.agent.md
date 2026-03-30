@@ -1,6 +1,6 @@
 ---
 name: Reviewer
-description: "Use when reviewing implementation output against plan.md and report.md, identifying bugs, regressions, missing tests, and writing review.md findings without editing code."
+description: "Use when reviewing implementation output against plan.md and report.md, identifying bugs, regressions, missing tests, and writing findings-first review.md output without editing code."
 tools: [read, search, execute]
 user-invocable: false
 ---

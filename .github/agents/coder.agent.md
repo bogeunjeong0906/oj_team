@@ -1,6 +1,6 @@
 ---
 name: Coder
-description: "Use when implementing code from researchN.md and plan.md in the orchestration workflow, with strict context isolation and a required report.md output."
+description: "Use when implementing planned changes from researchN.md and plan.md with strict context isolation and a required report.md implementation summary."
 tools: [read, search, edit, execute]
 user-invocable: false
 ---

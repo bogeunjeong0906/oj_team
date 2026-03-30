@@ -1,6 +1,6 @@
 ---
 name: researcher-scaling
-description: "Scale the researcher pool up or down by duplicating or removing researcher agent files. Use when project size, subsystem count, or context budget requires more or fewer parallel researchers in the orchestration workflow."
+description: "Scale the researcher pool up or down by duplicating or removing researcher agent files and updating the leader's allowed subagent list. Use when project size, subsystem count, or context budget requires more or fewer parallel researchers in the orchestration workflow."
 argument-hint: "current scope and desired researcher count"
 user-invocable: true
 ---
@@ -48,15 +48,33 @@ Use this skill when the leader needs to adjust the number of researcher agents f
 4. Update the description to mention the assigned subdomain or research slice.
 5. Assign a distinct artifact target such as research2.md or research3.md.
 6. Ensure the new researcher stays user-invocable: false.
-7. Give each duplicate researcher a clearly separated scope so their artifacts do not collapse into the same context slice.
+7. Add the new researcher's frontmatter name to the `agents` list in .github/agents/leader.agent.md.
+8. Give each duplicate researcher a clearly separated scope so their artifacts do not collapse into the same context slice.
 
 ## Scale-Down Procedure
 
 1. Identify which duplicate researcher files are no longer needed.
 2. Confirm their assigned scopes are already captured in existing research artifacts.
-3. Remove or archive the extra researcher agent files.
-4. Keep .github/agents/researcher.agent.md as the base researcher definition.
-5. Preserve any completed research artifacts even if the duplicate agent file is removed.
+3. Remove the retired researcher's frontmatter name from the `agents` list in .github/agents/leader.agent.md.
+4. Remove or archive the extra researcher agent files.
+5. Keep .github/agents/researcher.agent.md as the base researcher definition.
+6. Preserve any completed research artifacts even if the duplicate agent file is removed.
+
+## Allowed Subagent List Synchronization
+
+Use this procedure every time the active researcher pool changes.
+
+1. Read .github/agents/leader.agent.md and inspect the `agents` frontmatter array.
+2. Read the active researcher files under .github/agents/ and collect their frontmatter `name` values.
+3. Ensure the leader `agents` list always contains:
+  - `Researcher`
+  - every active duplicate researcher such as `Researcher 02` or `Researcher 03`
+  - `Planner`
+  - `Coder`
+  - `Reviewer`
+4. Remove stale researcher names from the leader `agents` list when their files are removed.
+5. Do not add file paths to the `agents` list. Use frontmatter names only.
+6. After syncing, verify that each listed agent name maps to an existing agent file with the same frontmatter name.
 
 ## Guardrails
 
@@ -64,3 +82,4 @@ Use this skill when the leader needs to adjust the number of researcher agents f
 - Only the leader manages researcher count.
 - Keep researcher descriptions specific enough for delegation and discovery.
 - Avoid creating more researchers than the request can actually use.
+- Treat researcher file creation or removal as incomplete until the leader `agents` list is synchronized.

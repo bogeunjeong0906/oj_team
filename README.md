@@ -70,6 +70,8 @@ docs/agent_docs/
 - request ID를 할당하고 docs/agent_docs/ 문서를 관리한다.
 - 프로젝트 규모와 컨텍스트 예산에 따라 리서처 수를 조절한다.
 - 리서처 파일을 복제하거나 정리해 팀 규모를 유동적으로 운영할 수 있다.
+- 최종 보고에서 각 단계를 누가 수행했는지 식별 가능하게 설명한다.
+- 리서처 수를 바꾸면 허용 서브에이전트 목록도 함께 갱신한다.
 - edit 권한은 가지지만 애플리케이션 코드 수정은 금지한다.
 
 ### 리서처 (Researcher)
@@ -120,6 +122,8 @@ docs/agent_docs/
 - 리더는 문서와 폴더는 수정할 수 있지만 애플리케이션 코드는 수정하지 않는다.
 - 리뷰는 리더가 아니라 리뷰어가 전담한다.
 - 리서처 수 조정은 프로젝트 규모, 병렬 조사 필요성, 컨텍스트 예산을 기준으로 결정한다.
+- 사용자는 리더 응답만 보고도 각 단계가 리더 직접 수행인지 서브에이전트 수행인지 구분할 수 있어야 한다.
+- 리더는 non-trivial 작업에서 Execution Ledger를 제공해 stage, executor, output, delegation status를 드러낸다.
 - 산출물은 재현 가능하고 다음 단계 에이전트가 바로 사용할 수 있는 형식으로 작성한다.
 
 ---
@@ -146,6 +150,19 @@ docs/agent_docs/
       ├── request-artifact-management/
       │   ├── SKILL.md
       │   └── assets/
+      ├── delegation-visibility/
+      │   ├── SKILL.md
+      │   └── assets/
       └── researcher-scaling/
           └── SKILL.md
 ```
+
+## 7. 실행 주체 식별 규칙
+
+- 리더는 최종 응답에서 Execution Ledger를 제공한다.
+- 각 stage는 다음 중 하나로 표시한다.
+  - `delegated and completed`
+  - `delegated but no usable result returned`
+  - `handled directly by leader`
+- ledger에는 최소한 stage, executor, output, note가 포함된다.
+- 리더는 위임이 실제로 완료되지 않았으면 위임 완료처럼 서술하면 안 된다.

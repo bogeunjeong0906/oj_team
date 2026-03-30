@@ -1,6 +1,6 @@
 ---
 name: Researcher 02
-description: "Use when the leader needs a second parallel researcher for the orchestration workflow, especially for repository structure, agent boundary validation, and writing research2.md for the current request."
+description: "Use when the leader needs a second parallel researcher for a distinct research slice, especially delegation rules, orchestration boundaries, documentation consistency, and writing research2.md for the current request."
 tools: [read, search, web, edit]
 user-invocable: false
 ---

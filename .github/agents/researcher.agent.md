@@ -1,6 +1,6 @@
 ---
 name: Researcher
-description: "Use when researching project structure, domain knowledge, APIs, external references, and writing researchN.md artifacts for the orchestration workflow. Can be duplicated to create additional researchers for parallel investigation."
+description: "Use when the leader needs focused codebase or domain research for a request, especially repository structure, external references, and writing research1.md or other researchN.md artifacts. Can be duplicated for parallel investigation."
 tools: [read, search, web, edit]
 user-invocable: false
 ---
