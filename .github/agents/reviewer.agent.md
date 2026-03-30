@@ -32,6 +32,7 @@ Read and follow these shared rules:
 - Prefer concrete evidence over stylistic preference.
 - If no issues are found, state that explicitly and list remaining testing gaps or residual risk.
 - Do not ask the user directly; recommend clarification only when the builder or planner could not safely resolve a material blocker.
+- Before running Python-based validation, inspect the repo root for `.venv`, `venv`, `env`, `.conda`, or `conda`. If the detected environment is a conda environment or path-based conda prefix, activate it with `conda activate <path>` first. If it is not actually a conda environment, use the environment's native activation method and record that fallback.
 
 ## Workflow
 

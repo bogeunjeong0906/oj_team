@@ -41,6 +41,7 @@ Read and follow these shared rules:
 - Do not skip validation after making code changes.
 - Do not modify research or plan files except when explicitly told to correct formatting or broken links.
 - Do not guess through major ambiguity when repository policy or standard practice does not resolve it.
+- Before running Python, inspect the repo root for `.venv`, `venv`, `env`, `.conda`, or `conda`. If the detected environment is a conda environment or path-based conda prefix, activate it with `conda activate <path>` first. If it is not actually a conda environment, use the environment's native activation method and record that fallback.
 
 ## Workflow
 

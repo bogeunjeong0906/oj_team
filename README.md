@@ -1,17 +1,25 @@
-
 # 오케스트레이션 커스터마이징 저장소
 
-이 저장소는 VS Code Copilot용 멀티 에이전트 오케스트레이션 규칙을 문서 기반으로 관리한다. 목적은 리더, 리서처, 플래너, 빌더, 리뷰어가 같은 방식으로 작업을 분해하고, request 단위 산출물을 남기고, 문법 오류와 컨텍스트 부족 같은 운영 실패를 미리 막는 것이다.
+이 저장소는 VS Code Copilot용 커스텀 에이전트, instructions, skills, prompts를 문서 기반으로 관리한다. 핵심은 두 계층을 분리하는 것이다.
 
-## 핵심 목표
+- Beast Mode는 외부 특권 계층의 단독 에이전트다.
+- Leader 기반 팀 워크플로우는 내부 오케스트레이션 계층이다.
 
-- 사용자 요청을 request 단위로 분리해 추적 가능하게 유지한다.
-- 연구, 계획, 구현, 리뷰의 역할 경계를 명확히 유지한다.
-- 리더 응답만 봐도 누가 어떤 단계를 수행했는지 알 수 있게 만든다.
-- 에이전트가 작업 전 컨텍스트 위험과 작업 후 Problems 상태를 반드시 확인하게 만든다.
-- 정보가 부족한 경우 무조건 추측하지 않고, 필요한 경우에만 제한적으로 질문하게 만든다.
+이 구분 때문에 Beast Mode는 request 생성 규칙을 따르지 않고, 내부 팀만 docs/agent_docs/request_XXXX 구조를 사용한다.
 
-## 저장소 구성
+## 핵심 원칙
+
+- Beast Mode는 자신의 agent 파일만 운영 기준으로 삼는다.
+- Beast Mode는 스스로 작업할 때 활성 request를 만들지 않는다.
+- 내부 팀 워크플로우는 request artifact를 사용하되, 저장소를 다른 프로젝트에 이식할 때는 활성 request 폴더를 남기지 않는다.
+- 리더는 직접 연구하지 않고, Researcher가 연구 단계를 소유한다.
+- Subresearcher는 필요할 때만 병렬 조사 슬라이스를 맡고, 최종 연구 산출물은 항상 Researcher가 합성한다.
+- 수정 전후 Problems 상태를 확인하고, Markdown과 customization 파일도 같은 검증 게이트를 통과해야 한다.
+- 정보가 부족할 때는 질문을 남발하지 않고, 저장소 정책 우선, 산업 표준 차선의 fallback을 기록한다.
+
+## 기본 저장소 상태
+
+배포 또는 재사용 가능한 기본 상태에서는 템플릿 request만 남긴다.
 
 ```text
 .github/
@@ -19,7 +27,8 @@
     beastmode.agent.md
     leader.agent.md
     researcher.agent.md
-    researcher-02.agent.md
+    subresearcher-01.agent.md
+    subresearcher-02.agent.md
     planner.agent.md
     builder.agent.md
     reviewer.agent.md
@@ -42,154 +51,139 @@
 docs/
   agent_docs/
     request_0000/
-    request_0001/
-    request_0002/
 ```
+
+활성 request 폴더는 내부 팀이 실제 작업할 때만 일시적으로 존재해야 하며, Beast Mode 전용 운영이나 저장소 이식 전 정리 대상이다.
+
+## 운영 계층
+
+### 1. Beast Mode
+
+- 단독 에이전트다.
+- 자체 워크플로우로 연구, 계획, 구현, 검증을 끝까지 수행할 수 있다.
+- 내부 Leader request 워크플로우를 실행 규칙으로 채택하지 않는다.
+- docs/agent_docs/request_XXXX를 자신의 실행 산출물로 만들지 않는다.
+
+### 2. Internal Team Workflow
+
+- Leader가 사용자와 직접 대화한다.
+- Researcher가 연구 단계를 소유한다.
+- Subresearcher 01, Subresearcher 02는 필요할 때만 병렬 조사에 참여한다.
+- Planner가 plan.md를 작성한다.
+- Builder가 구현과 self-review를 담당한다.
+- Reviewer가 필요 시 독립 검토 게이트를 제공한다.
 
 ## Request 모델
 
+- request artifact 규칙은 내부 팀 워크플로우에만 적용된다.
 - `request_0000`은 공식 템플릿이자 예시 패키지다.
-- 활성 작업은 `request_0001`부터 시작한다.
+- 내부 활성 작업은 `request_0001`부터 시작한다.
 - 같은 1차 목표를 계속 다듬는 후속 수정은 같은 request 번호를 재사용한다.
 - 요청 카테고리, 주요 산출물, 대상 서브시스템, 구현 방향이 크게 바뀌면 새 request를 만든다.
-- 각 활성 request는 아래 산출물 집합을 기준으로 운영한다.
+
+내부 팀의 request 산출물은 아래 구조를 기준으로 운영한다.
 
 ```text
 docs/agent_docs/request_XXXX/
   research1.md
   research2.md
+  research3.md
   plan.md
   report.md
   review.md
 ```
 
-## 에이전트 역할
+- `research1.md`: main Researcher의 최종 합성 결과
+- `research2.md`: Subresearcher 01 지원 조사
+- `research3.md`: Subresearcher 02 지원 조사
+
+작업 범위가 작으면 `research2.md`, `research3.md`는 생략할 수 있다.
+
+## 역할 정의
+
+### Beast Mode
+
+- 외부 특권 계층 에이전트
+- request 비생성 원칙 유지
+- 필요 시 내부 오케스트레이션 파일을 수정 대상 콘텐츠로만 다룸
 
 ### Leader
 
-- 사용자와 직접 대화하는 유일한 에이전트다.
-- request 번호 재사용 또는 신규 할당을 결정한다.
-- 연구 인원 수와 위임 경로를 결정한다.
-- 작업 시작 전에 context preflight를 수행한다.
-- 정보 부족이 안정적인 구현을 막는 경우에만 사용자에게 질문한다.
-- 작업 완료 전 Problems 및 lint 게이트 통과 여부를 확인한다.
+- 내부 팀의 요청 연속성, context preflight, 검증 게이트, 위임 경로를 관리한다.
+- Researcher와 subresearcher를 조합해 연구 단계를 배치한다.
+- 직접 연구하지 않는다.
 
 ### Researcher
 
-- 관련 코드, 문서, 외부 자료를 조사한다.
-- researchN.md에 사실, 제약, 위험, 열린 질문을 기록한다.
-- 빌더가 불필요한 문맥을 읽지 않도록 입력 범위를 정제한다.
-- 필요한 경우 어떤 질문이 정말 필요한지와 기본 fallback 경로를 제안한다.
+- 연구 단계의 주인이다.
+- 단독 조사 또는 subresearcher 결과를 합성한 최종 연구 산출물을 만든다.
+
+### Subresearcher 01 / 02
+
+- 넓은 범위에서만 활성화되는 병렬 조사자다.
+- 서로 겹치지 않는 슬라이스를 조사해 main Researcher에 전달한다.
 
 ### Planner
 
-- researchN.md를 바탕으로 실행 가능한 plan.md를 만든다.
-- 구현 순서, 대상 파일, 검증 계획, 완료 조건을 구체화한다.
-- 구현 전에 반드시 해소해야 하는 모호성을 드러낸다.
+- 연구 결과를 plan.md로 변환한다.
 
 ### Builder
 
-- researchN.md와 plan.md만을 핵심 입력으로 삼아 구현한다.
-- 수정 전후 Problems 상태와 관련 lint 결과를 확인한다.
-- self-review를 수행한 뒤 report.md에 변경과 검증을 기록한다.
-- 사용자 답변이 없으면 프로젝트 정책, 그다음 산업 표준을 따른다.
+- plan.md 기반 구현 담당자다.
+- 수정 전후 Problems 확인과 self-review가 필수다.
 
 ### Reviewer
 
-- plan.md와 report.md를 기준으로 독립 검토를 수행한다.
-- 버그, 회귀 위험, 검증 누락, 부적절한 가정 사용 여부를 찾는다.
-- 필요할 때만 투입되는 독립 게이트 역할이다.
+- 고위험 또는 사용자 요청 시 독립 검토를 수행한다.
 
-## 표준 워크플로우
+## 내부 팀 표준 워크플로우
 
-1. 리더가 request 연속성 여부와 신규 request 필요 여부를 판단한다.
-2. 리더가 context preflight를 수행해 작업 전 컨텍스트 위험을 분류한다.
-3. 필요하면 리서처를 1명 이상 배정해 researchN.md를 채운다.
-4. 플래너가 plan.md를 작성한다.
-5. 안정적인 구현을 막는 정보 부족이 남아 있으면 리더가 한 번에 묶어 질문한다.
-6. 빌더가 구현하고 Problems/lint 게이트와 self-review를 통과시킨 뒤 report.md를 작성한다.
-7. 고위험이거나 사용자가 요청한 경우 리뷰어가 review.md를 작성한다.
-8. 리더가 Execution Ledger와 함께 결과를 사용자에게 보고한다.
+1. Leader가 이 요청이 내부 팀용인지 Beast Mode용인지 먼저 판단한다.
+2. Beast Mode용이면 request artifact를 만들지 않는다.
+3. 내부 팀용이면 context preflight를 수행한다.
+4. request 재사용 또는 신규 할당을 결정한다.
+5. Researcher를 기본 배치하고 필요 시 subresearcher를 추가한다.
+6. Researcher가 최종 연구 handoff를 정리한다.
+7. Planner가 실행 계획을 만든다.
+8. Builder가 구현, Problems/lint 검증, self-review를 수행한다.
+9. 필요 시 Reviewer가 독립 검토를 수행한다.
+10. Leader가 Execution Ledger와 함께 사용자에게 보고한다.
+
+## Python 실행 규칙
+
+Python 명령을 실행하는 에이전트는 먼저 저장소 루트의 `.venv`, `venv`, `env`, `.conda`, `conda`를 확인해야 한다.
+
+- 유효한 conda 환경 또는 path prefix면 `conda activate <path>` 후 실행한다.
+- 폴더 이름만 비슷하고 실제 conda 환경이 아니면 해당 환경의 native activation을 사용하고 그 fallback을 기록한다.
+
+이 규칙은 Beast Mode, Builder, Reviewer에 직접 반영되어 있다.
 
 ## 운영 가드레일
 
-### 1. Delegation Visibility
+### Delegation Visibility
 
-- 리더는 non-trivial 작업에서 Execution Ledger를 제공한다.
-- 각 단계는 `research`, `planning`, `building`, `review` 기준으로 추적한다.
-- 위임이 실제로 완료되지 않았으면 완료처럼 서술하지 않는다.
+- non-trivial 내부 팀 작업은 Execution Ledger를 남긴다.
+- research 단계는 leader 직접 처리로 기록될 수 없다.
+- subresearcher가 기여했더라도 최종 research stage owner는 Researcher다.
 
-### 2. Problems and Lint Gate
+### Problems and Lint Gate
 
-- 수정 전 baseline Problems를 확인한다.
-- 수정 후 touched file 기준으로 Problems를 다시 확인한다.
-- 기존 lint 또는 build task가 있으면 관련 task를 우선 사용한다.
-- 명시적 task가 없어도 Problems 데이터 자체는 반드시 확인한다.
-- Markdown, frontmatter, instructions, skills, prompts도 동일한 게이트를 적용한다.
+- Markdown, frontmatter, instructions, skills, prompts까지 포함해 검증한다.
+- touched file에 새 오류를 남기면 완료로 간주하지 않는다.
 
-### 3. Context Preflight
+### Context Preflight
 
-- 큰 작업 전에는 예상 working set과 안전 여유를 계산한다.
-- 위험이 높으면 작업 도중이 아니라 작업 전에 `/compact`를 우선 고려한다.
-- `/compact`가 불가능하면 request 산출물에 상태를 요약하고 working set을 줄인다.
+- 큰 작업은 시작 전에 working set 위험을 추정한다.
+- 위험이 높으면 `/compact` 또는 working set 축소를 먼저 적용한다.
 
-### 4. Clarification Fallback
+### Clarification Fallback
 
-- 질문은 안정적인 구현이 막힐 때만 허용된다.
-- 사소한 스타일 선택이나 일반적인 관례는 질문 사유가 아니다.
-- 질문은 한 번에 묶어서 짧게 한다.
-- 사용자가 답하지 못하면 프로젝트 정책을 우선 적용한다.
-- 저장소에 정책이 없으면 산업 표준을 적용하고 가정을 문서에 남긴다.
-
-## Skills
-
-### request-artifact-management
-
-- request 산출물 생성 및 갱신 규칙을 정의한다.
-
-### request-id-allocation
-
-- 기존 request 재사용 여부와 새 request 번호 부여 기준을 정의한다.
-
-### researcher-scaling
-
-- 리서처 수를 컨텍스트 예산과 범위에 따라 조정한다.
-
-### delegation-visibility
-
-- 리더가 어떤 단계를 직접 처리했고 무엇을 위임했는지 드러내게 한다.
-
-### problems-lint-gate
-
-- Problems 패널과 lint 결과를 완료 게이트로 강제한다.
-
-### context-preflight
-
-- 작업 전 컨텍스트 부족 위험을 추정하고 사전 압축 또는 범위 축소를 결정한다.
-
-### clarification-fallback
-
-- 질문 남용을 막으면서 필요한 질문만 하도록 제한하고, 답이 없을 때의 fallback 순서를 정의한다.
-
-### git-commit-workflow
-
-- 사용자가 명시적으로 요청한 경우에만 stage, commit, push를 수행하게 한다.
-
-## 문서 작성 규칙
-
-- Markdown 문서는 heading 주변 공백, 일관된 리스트, 마지막 trailing newline을 유지한다.
-- request artifact는 stage별 역할에 맞게 나누고 문서를 합치지 않는다.
-- 열린 질문과 fallback 가정은 숨기지 않고 문서에 남긴다.
+- 질문은 안정적인 구현을 막는 실질적 모호성에서만 허용된다.
+- 질문은 한 번에 묶는다.
+- 답이 없으면 저장소 정책, 그다음 산업 표준을 따른다.
 
 ## Git 원칙
 
 - commit과 push는 사용자가 명시적으로 요청한 경우에만 수행한다.
-- commit 전에는 변경 범위가 요청 범위와 일치하는지 확인한다.
-- 관련 없는 변경이 섞여 있으면 분리하거나 중단한다.
-
-## 현재 운영 방향
-
-- 기본 구현자는 Builder다.
-- Reviewer는 조건부 독립 게이트다.
-- request 산출물은 작업 기록이자 컨텍스트 압축 수단이다.
-- 이 저장소의 중심은 애플리케이션 코드가 아니라 에이전트 동작 규칙의 일관성이다.
+- 관련 없는 변경은 가능한 한 커밋에서 제외한다.
+- 저장소를 공유하거나 이식하기 전에는 활성 request 폴더를 제거한다.

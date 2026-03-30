@@ -1,44 +1,50 @@
 # Scope and Assumptions
 
-- 범위: 오케스트레이션 에이전트 팀의 1차 워크스페이스 커스터마이징 구축 템플릿
-- 가정: 이 request는 공식 예시와 템플릿 역할을 하며 이후 active request들이 참조한다.
+- 범위: Beast Mode 예외와 내부 팀 request 워크플로우를 공존시키는 공식 템플릿 정리
+- 가정: 이 request는 공식 예시와 템플릿 역할을 하며 저장소 기본 상태를 설명한다.
 
 ## Ordered Steps
 
-1. beastmode.agent.md는 유지하고 나머지 역할별 에이전트를 분리한다.
-2. 공통 운영 규칙을 instructions로 분리한다.
-3. request artifact 관리와 researcher scaling을 skills로 추가한다.
-4. docs/agent_docs/request_0000 산출물 세트를 공식 템플릿으로 정리한다.
-5. 리더가 복제해서 사용할 researcher-02.agent.md 예시를 추가한다.
-6. Markdown 및 frontmatter 오류를 점검한다.
+1. Beast Mode를 standalone external agent로 명시하고 request 비생성 원칙을 고정한다.
+2. Leader 기반 내부 팀 워크플로우를 request artifact 전용 경로로 유지한다.
+3. duplicate researcher 모델을 Researcher + Subresearcher 01 + Subresearcher 02 구조로 교체한다.
+4. Researcher가 최종 연구 합성자이고 leader direct research는 금지라는 점을 규칙과 템플릿에 반영한다.
+5. Python 실행 전 repo-local 환경을 먼저 식별하는 규칙을 추가한다.
+6. request_0000 문서 세트를 새 구조 기준으로 갱신한다.
+7. portable 기본 상태를 위해 활성 request 폴더 제거 원칙을 문서화한다.
 
 ## Target Files
 
+- .github/agents/beastmode.agent.md
 - .github/agents/leader.agent.md
 - .github/agents/researcher.agent.md
-- .github/agents/planner.agent.md
+- .github/agents/subresearcher-01.agent.md
+- .github/agents/subresearcher-02.agent.md
 - .github/agents/builder.agent.md
 - .github/agents/reviewer.agent.md
-- .github/agents/researcher-02.agent.md
-- .github/instructions/*.instructions.md
-- .github/skills/request-artifact-management/SKILL.md
+- .github/instructions/orchestration.instructions.md
+- .github/instructions/role-boundaries.instructions.md
+- .github/prompts/create-next-request.prompt.md
 - .github/skills/researcher-scaling/SKILL.md
+- .github/skills/delegation-visibility/**
+- README.md
 - docs/agent_docs/request_0000/*.md
 
 ## Validation Plan
 
-- 새로 만든 Markdown 파일의 구조와 frontmatter를 오류 검사한다.
-- README와 생성된 agent, instruction, skill 파일에 lint 또는 구문 오류가 없는지 확인한다.
-- request_0000 산출물이 canonical artifact set을 모두 포함하는지 확인한다.
+- 변경된 Markdown/customization 파일의 Problems를 점검한다.
+- request_0000 템플릿이 research1.md, research2.md, research3.md, plan.md, report.md, review.md를 포함하는지 확인한다.
+- Beast Mode 예외와 내부 request 규칙이 README, instructions, agents에서 같은 방향을 가리키는지 확인한다.
 
 ## Completion Criteria
 
-- 다섯 역할의 agent 파일이 존재한다.
-- researcher-02.agent.md 예시가 존재한다.
-- request_0000 아래 research1.md, research2.md, plan.md, report.md, review.md가 존재한다.
-- 관련 Markdown/customization 파일 오류가 없다.
+- Beast Mode가 request 비생성 예외로 명시된다.
+- 내부 연구 구조가 Researcher와 두 개의 subresearcher 기준으로 정리된다.
+- leader direct research 금지 규칙이 반영된다.
+- Python 실행 전 환경 활성화 규칙이 반영된다.
+- request_0000 문서가 새 운영 모델을 설명한다.
 
 ## Risks and Decision Points
 
-- 향후 researcher를 더 늘릴 때 naming 규칙을 `researcher-02`, `researcher-03`로 유지할지 결정이 필요할 수 있다.
-- docs/agent_docs의 실제 운영 범위를 모든 요청으로 확대할지, 중요한 요청에만 적용할지 추후 정할 수 있다.
+- env-like 폴더 판별은 conda 우선이되 native fallback 허용으로 균형을 잡아야 한다.
+- 실제 작업 request는 상황에 따라 research2.md, research3.md를 생략할 수 있다.

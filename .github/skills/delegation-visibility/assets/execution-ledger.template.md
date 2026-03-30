@@ -4,7 +4,7 @@
   Executor: Researcher
   Output: research1.md
   Delegation status: delegated and completed
-  Note: Focused repository and domain investigation completed by subagent.
+  Note: Main Researcher owned the stage and may have merged supporting input from Subresearcher 01 or Subresearcher 02.
 
 - Stage: Planning
   Executor: Planner

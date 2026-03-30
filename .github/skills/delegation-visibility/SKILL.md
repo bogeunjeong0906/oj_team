@@ -44,6 +44,8 @@ Use only these delegation status values:
 ## Stage Ownership Rules
 
 - Research, planning, building, and review are separate ownership decisions.
+- The research stage must not be handled directly by the leader.
+- Name `Researcher` as the research-stage owner and mention `Subresearcher 01` or `Subresearcher 02` in the note when they supplied supporting slices.
 - If a subagent performed a stage, name the agent exactly as defined in frontmatter.
 - If multiple subagents contributed, list the primary executor first and mention the supporting executor in the note.
 - If the leader handled a stage directly, say so explicitly and give a short reason.
@@ -63,9 +65,9 @@ Apply this checklist before the leader ends a non-trivial turn.
 ## Allowed Subagent Synchronization Rules
 
 - The leader `agents` frontmatter must always list `Researcher`, `Planner`, `Builder`, and `Reviewer`.
-- It must also list every active duplicate researcher such as `Researcher 02` or `Researcher 03`.
-- When a duplicate researcher file is created, add its frontmatter name to the leader `agents` list in the same change set.
-- When a duplicate researcher file is removed, remove its frontmatter name from the leader `agents` list in the same change set.
+- It must also list every active supporting researcher such as `Subresearcher 01` or `Subresearcher 02`.
+- When a supporting researcher file is created or activated, add its frontmatter name to the leader `agents` list in the same change set.
+- When a supporting researcher file is removed or deactivated, remove its frontmatter name from the leader `agents` list in the same change set.
 - Treat scaling work as incomplete if this synchronization step has not been done.
 
 ## Output Template

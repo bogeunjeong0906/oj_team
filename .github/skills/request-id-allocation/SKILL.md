@@ -9,6 +9,8 @@ user-invocable: true
 
 Use this skill when the leader must decide whether to keep writing in an existing active request folder or start a new active request.
 
+Do not use this skill for Beast Mode's own execution flow.
+
 ## Core Rules
 
 - `request_0000` is reserved as the official template and example package.

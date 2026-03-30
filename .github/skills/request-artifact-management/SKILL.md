@@ -9,6 +9,8 @@ user-invocable: true
 
 Use this skill when the orchestration workflow needs a new request folder or when an agent must create or update the standard artifact set.
 
+Do not use this skill for Beast Mode's own execution flow.
+
 ## Responsibilities
 
 - Determine whether to reuse an active request or allocate a new one.

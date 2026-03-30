@@ -13,12 +13,13 @@ Use this guide to interpret leader responses.
 - `delegated and completed` means the leader is claiming a subagent produced a usable result.
 - `delegated but no usable result returned` means a delegation attempt did not produce a usable output.
 - `handled directly by leader` means the leader says no subagent result was used for that stage.
+- For the research stage, `handled directly by leader` should be treated as a workflow violation.
 
 ## How to Cross-Check
 
 - Compare the reported output with the artifact files in docs/agent_docs/request_XXXX/.
 - Compare the executor names with the agent names defined in .github/agents/.
-- If researcher scaling happened, check whether leader.agent.md includes the same researcher names in the `agents` list.
+- If supporting researchers were used, check whether leader.agent.md includes the same subresearcher names in the `agents` list.
 
 ## Expected Operator Outcome
 

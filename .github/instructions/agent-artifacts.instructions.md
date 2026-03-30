@@ -6,6 +6,8 @@ applyTo: "docs/agent_docs/**/*.md"
 
 # Agent Artifact Conventions
 
+- These conventions apply to the internal Leader workflow, not to Beast Mode standalone execution.
+
 - Store all request artifacts under docs/agent_docs/request_XXXX/.
 - Treat docs/agent_docs/request_0000/ as the official template and example package.
 - Do not write active work into docs/agent_docs/request_0000/.
