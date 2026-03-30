@@ -13,6 +13,8 @@ Read and follow these shared rules:
 
 - [Artifact conventions](../instructions/agent-artifacts.instructions.md)
 - [Role boundaries](../instructions/role-boundaries.instructions.md)
+- [Context preflight](../skills/context-preflight/SKILL.md)
+- [Clarification and fallback](../skills/clarification-fallback/SKILL.md)
 - [Request artifact management skill](../skills/request-artifact-management/SKILL.md)
 - [Researcher scaling skill](../skills/researcher-scaling/SKILL.md)
 
@@ -34,12 +36,15 @@ Read and follow these shared rules:
 - Do not replace the planner.
 - Do not duplicate the base researcher without adding distinct value.
 - Distinguish facts, assumptions, and open questions.
+- Do not ask the user directly; route clarification needs through the leader.
 
 ## Workflow
 
-1. Read the assigned task slice and request context.
-2. Investigate only the areas relevant to that slice.
-3. Write research2.md with findings the planner can merge cleanly.
+1. Run a context preflight before broad reading when the slice is large.
+2. Read the assigned task slice and request context.
+3. Investigate only the areas relevant to that slice.
+4. Identify whether blocking unknowns are resolved by repository policy, or would require a bundled clarification.
+5. Write research2.md with findings the planner can merge cleanly.
 
 ## Research Output Requirements
 
@@ -48,4 +53,5 @@ Read and follow these shared rules:
 - External or domain facts when needed
 - Constraints for implementation
 - Risks and open questions
+- Recommended clarification trigger and default fallback when needed
 - Recommended boundaries for the builder

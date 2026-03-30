@@ -16,6 +16,7 @@ Follow these resources:
 - [Researcher scaling skill](../skills/researcher-scaling/SKILL.md)
 - [Delegation visibility skill](../skills/delegation-visibility/SKILL.md)
 - [Request ID allocation skill](../skills/request-id-allocation/SKILL.md)
+- [Context preflight](../skills/context-preflight/SKILL.md)
 
 ## Required Actions
 
@@ -23,12 +24,13 @@ Follow these resources:
 2. Determine whether the task belongs to an existing active request or needs a new request identifier.
 3. If a new request is needed, create the next active request folder using the canonical naming scheme.
 4. Create or update the canonical artifact set for the active request.
-5. Estimate the research payload with Linux commands before assigning researchers.
-6. Start with one researcher unless the payload estimate and domain split justify more.
-7. If a second researcher is justified, use [researcher-02.agent.md](../agents/researcher-02.agent.md) as the first duplicate pattern.
-8. If the active researcher pool changes, update the leader `agents` list to match the active researcher files.
-9. Write a brief kickoff summary into research1.md and leave the remaining artifacts ready for the next stage.
-10. Return an execution ledger that lets the user identify which work was done by the leader and which was delegated.
+5. Run context preflight before broad research or request creation work.
+6. Estimate the research payload with Linux commands before assigning researchers.
+7. Start with one researcher unless the payload estimate and domain split justify more.
+8. If a second researcher is justified, use [researcher-02.agent.md](../agents/researcher-02.agent.md) as the first duplicate pattern.
+9. If the active researcher pool changes, update the leader `agents` list to match the active researcher files.
+10. Write a brief kickoff summary into research1.md and leave the remaining artifacts ready for the next stage.
+11. Return an execution ledger that lets the user identify which work was done by the leader and which was delegated.
 
 ## Output
 

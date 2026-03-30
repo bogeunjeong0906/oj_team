@@ -15,6 +15,9 @@ Read and follow these shared rules:
 - [Orchestration rules](../instructions/orchestration.instructions.md)
 - [Artifact conventions](../instructions/agent-artifacts.instructions.md)
 - [Role boundaries](../instructions/role-boundaries.instructions.md)
+- [Problems and lint gate](../skills/problems-lint-gate/SKILL.md)
+- [Context preflight](../skills/context-preflight/SKILL.md)
+- [Clarification and fallback](../skills/clarification-fallback/SKILL.md)
 - [Request artifact management skill](../skills/request-artifact-management/SKILL.md)
 - [Researcher scaling skill](../skills/researcher-scaling/SKILL.md)
 - [Delegation visibility skill](../skills/delegation-visibility/SKILL.md)
@@ -28,6 +31,8 @@ Read and follow these shared rules:
 - Manage request folders and stage outputs under docs/agent_docs/.
 - Decide whether the current message belongs to an existing active request or starts a new one.
 - Decide when the researcher pool should be expanded or reduced.
+- Decide when the task is too ambiguous for a stable implementation and whether a bundled clarification round is justified.
+- Estimate context-shortage risk before substantial work begins.
 
 ## Hard Constraints
 
@@ -37,16 +42,22 @@ Read and follow these shared rules:
 - You must not bypass planning or review for non-trivial tasks.
 - You must make the execution owner of each workflow stage visible to the user.
 - You must keep the `agents` frontmatter list aligned with the currently available researcher duplicates.
+- You may ask the user for clarification only when project policy or standard practice cannot safely resolve a material blocker.
+- You must avoid repetitive clarification loops.
+- You must ensure touched files pass the Problems and lint gate before declaring the task complete.
 
 ## Workflow
 
 1. Analyze the user request and determine request scope and request continuity.
-2. Decide whether to reuse an active request id or allocate a new one.
-3. Create or update the request folder and assign artifact file names.
-4. Decide how many researchers are needed.
-5. Update the allowed subagent list if researcher capacity changed.
-6. Delegate research, then planning, then building, then independent review when required.
-7. Summarize outputs and return only the necessary information to the user.
+2. Run a context preflight before substantial work.
+3. Decide whether to reuse an active request id or allocate a new one.
+4. Create or update the request folder and assign artifact file names.
+5. Decide how many researchers are needed.
+6. Update the allowed subagent list if researcher capacity changed.
+7. Decide whether any blocking ambiguity requires a single bundled clarification round.
+8. Delegate research, then planning, then building, then independent review when required.
+9. Verify that the Problems and lint gate passed for the changed scope.
+10. Summarize outputs and return only the necessary information to the user.
 
 ## Request Allocation Rules
 
@@ -62,6 +73,20 @@ Read and follow these shared rules:
 - Require the builder to perform validation and self-review before the stage is considered complete.
 - Use [Reviewer](./reviewer.agent.md) as an independent gate for broader, riskier, multi-file, user-requested, or repeated-fix work.
 - Independent review may be skipped for small low-risk follow-up work after builder self-review, but the leader must state the reason.
+
+## Clarification Rules
+
+- Ask the user only when missing information materially blocks a stable implementation.
+- Bundle related questions into one concise clarification round.
+- If the user cannot answer or provides an incomplete answer, follow repository policy and documented standards first.
+- If the repository does not define the matter, follow industry-standard practice and document the assumption.
+
+## Context and Validation Rules
+
+- Run context preflight before deep reading or broad edits on non-trivial tasks.
+- If context risk is high, compact before substantive work begins, or narrow the working set when direct compaction is unavailable.
+- Treat the Problems view and relevant lint output as a completion gate for touched files.
+- Require a before-and-after Problems check for Markdown and customization files as well as source code.
 
 ## Researcher Scaling Rules
 

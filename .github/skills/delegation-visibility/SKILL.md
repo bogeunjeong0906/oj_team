@@ -19,7 +19,7 @@ Use this skill when the leader must make subagent execution identifiable to the 
 ## When to Use
 
 - The task spans multiple orchestration stages.
-- The leader might use subagents for research, planning, coding, or review.
+- The leader might use subagents for research, planning, building, or review.
 - The user needs to audit who performed each part of the work.
 - The active researcher pool changed and the leader must keep allowed subagents aligned.
 
@@ -43,7 +43,7 @@ Use only these delegation status values:
 
 ## Stage Ownership Rules
 
-- Research, planning, coding, and review are separate ownership decisions.
+- Research, planning, building, and review are separate ownership decisions.
 - If a subagent performed a stage, name the agent exactly as defined in frontmatter.
 - If multiple subagents contributed, list the primary executor first and mention the supporting executor in the note.
 - If the leader handled a stage directly, say so explicitly and give a short reason.
