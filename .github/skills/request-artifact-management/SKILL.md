@@ -28,16 +28,18 @@ Do not use this skill for Beast Mode's own execution flow.
 6. Use the templates in [assets](./assets/) when creating a new artifact from scratch.
 7. Do not merge multiple workflow stages into a single document.
 
+
 ## Canonical Artifact Set
 
-- research1.md, research2.md, ...
+- research.md (Main Researcher)
+- research1.md, research2.md, ... (Subresearcher N)
 - plan.md
 - report.md
 - review.md
 
 ## Notes
 
-- Researcher outputs are numbered in the order they are assigned.
+- Main Researcher output is always research.md. Subresearcher outputs are named research1.md, research2.md, ... in the order assigned.
 - review.md is mandatory when an independent reviewer is used.
 - request_0000 is reserved for the official example and template set.
 - If a request loops back for more work, update the existing folder instead of creating a new request id unless the scope has materially changed.

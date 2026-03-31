@@ -1,31 +1,32 @@
 # Summary
 
-지원 연구자 관점에서는 Researcher가 최종 연구 소유자이고, Subresearcher 01과 Subresearcher 02는 필요할 때만 병렬 슬라이스를 조사해야 한다는 점을 확인했다.
+세 번째 연구 관점에서는 저장소 휴대성과 Python 실행 규칙을 점검했다. 기본 저장소 상태에서는 활성 request 폴더가 없어야 하고, Python 실행 시에는 repo-local 환경을 먼저 식별해야 한다.
 
 ## Scope Investigated
 
-- subresearcher naming 구조
-- leader agents 목록 동기화 규칙
-- delegation visibility에서 research stage를 표현하는 방식
+- 활성 request 폴더 정리 정책
+- Beast Mode 전용 운영 시의 저장소 상태
+- conda 기반 Python 환경 활성화 방식
 
 ## Codebase Facts
 
-- 기존 구조는 `researcher-02.agent.md` 같은 중복 researcher 모델에 의존하고 있었다.
-- leader.agent.md와 researcher-scaling skill이 기존 naming에 결합되어 있었다.
-- request_0000 템플릿도 기존 duplicate researcher 모델을 예시로 사용하고 있었다.
+- request_0000 외의 request 폴더는 실제 작업 흔적이며 템플릿 자체는 아니다.
+- 저장소를 다른 프로젝트에 붙여 쓸 때 기존 활성 request가 남아 있으면 오해를 만든다.
+- 현재 저장소는 customization 중심이므로 Python 환경 규칙은 미래 작업을 위한 운영 가드레일에 가깝다.
 
 ## External or Domain Facts
 
-- supporting agent는 distinct artifact target을 가져야 병렬 조사 충돌이 줄어든다.
-- main agent가 synthesis를 담당하면 planner 입력을 한 파일에 안정적으로 고정할 수 있다.
+- conda 공식 문서는 prefix 기반 환경을 `conda activate ./envs`처럼 활성화할 수 있다고 설명한다.
+- conda는 활성화 없이 실행할 때 activation script와 환경 변수가 적용되지 않아 문제가 생길 수 있다고 경고한다.
+- 실제 conda 환경이 아닌 venv 스타일 폴더는 native activation을 써야 한다.
 
 ## Constraints for Implementation
 
-- Researcher는 final research handoff owner여야 한다.
-- Subresearcher 01은 research2.md, Subresearcher 02는 research3.md를 기본 대상으로 삼는 편이 자연스럽다.
-- leader의 research stage direct handling은 금지되어야 한다.
+- Beast Mode 작업 자체로는 활성 request를 만들면 안 된다.
+- 저장소 기본 상태는 request_0000만 남기는 방향이 적합하다.
+- Python 실행 규칙은 conda 우선이되 가짜 conda 해석은 피해야 한다.
 
 ## Risks and Open Questions
 
-- 실제 작은 작업에서는 subresearcher 파일이 존재하더라도 비활성 상태가 기본이어야 한다.
-- Execution Ledger template이 research stage owner와 supporting executor를 함께 설명해야 한다.
+- env-like 폴더 이름만 보고 무조건 conda activate를 시도하면 잘못된 환경을 깨울 수 있다.
+- 따라서 conda env 판별과 native fallback을 함께 규정해야 한다.

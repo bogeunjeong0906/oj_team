@@ -46,7 +46,7 @@ Read and follow these shared rules:
 6. If subresearchers are active, assign or interpret their slices and avoid duplicating their raw collection work.
 7. Use external research only when the task depends on current documentation or domain facts.
 8. Identify whether open questions can be resolved by repository policy or standard practice.
-9. Write research1.md as the final research-stage synthesis so that the planner and builder can use it directly.
+9. Write research.md as the final research-stage synthesis so that the planner and builder can use it directly.
 
 ## Research Output Requirements
 

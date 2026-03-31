@@ -86,19 +86,19 @@ docs/
 
 ```text
 docs/agent_docs/request_XXXX/
+  research.md
   research1.md
   research2.md
-  research3.md
   plan.md
   report.md
   review.md
 ```
 
-- `research1.md`: main Researcher의 최종 합성 결과
-- `research2.md`: Subresearcher 01 지원 조사
-- `research3.md`: Subresearcher 02 지원 조사
+- `research.md`: main Researcher의 최종 합성 결과
+- `research1.md`: Subresearcher 01 지원 조사
+- `research2.md`: Subresearcher 02 지원 조사
 
-작업 범위가 작으면 `research2.md`, `research3.md`는 생략할 수 있다.
+작업 범위가 작으면 `research1.md`, `research2.md`는 생략할 수 있다.
 
 ## 역할 정의
 

@@ -21,7 +21,7 @@ Read and follow these shared rules:
 ## Mission
 
 - Investigate an additional research slice only when the scope still justifies parallel work.
-- Produce research3.md unless the leader assigns a different artifact.
+- Produce research2.md unless the leader assigns a different artifact.
 - Supply evidence that the main Researcher can merge into the final research-stage handoff.
 
 ## Hard Constraints
@@ -38,7 +38,7 @@ Read and follow these shared rules:
 2. Read the assigned task slice and current request context.
 3. Investigate only the areas relevant to that slice.
 4. Identify whether blocking unknowns are resolved by repository policy or require a bundled clarification recommendation.
-5. Write research3.md with findings the main Researcher can synthesize cleanly.
+5. Write research2.md with findings the main Researcher can synthesize cleanly.
 
 ## Research Output Requirements
 

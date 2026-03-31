@@ -31,7 +31,7 @@ Follow these resources:
 7. Have Researcher estimate the research payload and recommend whether supporting subresearchers are needed.
 8. If the Researcher recommendation justifies broader parallel research, activate [subresearcher-01.agent.md](../agents/subresearcher-01.agent.md) and then [subresearcher-02.agent.md](../agents/subresearcher-02.agent.md) in that order.
 9. If the active research pool changes, update the leader `agents` list to match the active subresearcher files.
-10. Prepare research1.md for the main Researcher synthesis and add research2.md or research3.md only when subresearchers are approved.
+10. Prepare research.md for the main Researcher synthesis and add research1.md, research2.md, ... only when subresearchers are approved.
 11. Return an execution ledger that lets the user identify which work was done by the leader and which was delegated.
 
 ## Output

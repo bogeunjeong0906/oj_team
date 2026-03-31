@@ -36,8 +36,8 @@ description: "Use when defining or checking authority boundaries between leader,
   - Must not implement code.
   - Must surface unresolved material ambiguity instead of burying it in the plan.
 
-- Builder:
-  - Must treat researchN.md and plan.md as the primary context.
+  - Builder:
+    - Must treat research.md, research1.md, research2.md, ... and plan.md as the primary context.
   - May read and edit only the planned implementation targets and directly adjacent files needed to complete those targets.
   - Must not broaden scope through independent exploration.
   - Must perform an internal validation and self-review loop before marking execution complete.

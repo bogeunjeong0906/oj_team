@@ -20,9 +20,10 @@ description: "Use when creating or maintaining the repository's multi-agent orch
 - The leader must not create a request artifact package when the user is operating through standalone Beast Mode instead of the internal team workflow.
 - Reuse the same active request id when the user is asking for follow-up fixes, missing pieces, small regressions, polishing, or adjacent corrections for the same primary outcome.
 - Allocate a new active request id when the primary goal, subsystem, deliverable category, or implementation target materially changes.
-- Research must always be owned by Researcher and may use zero, one, or two supporting subresearchers, depending on scope and context budget.
-- The main Researcher estimates research scope with repository heuristics and recommends whether supporting researchers are needed.
-- The leader approves and enacts supporting-researcher scaling after reviewing the Researcher recommendation.
+	- Research must always be owned by Researcher and may use zero, one, or two supporting subresearchers, depending on scope and context budget.
+	- The main Researcher produces research.md as the final synthesis. Each subresearcher produces research1.md, research2.md, ... as supporting artifacts.
+	- The main Researcher estimates research scope with repository heuristics and recommends whether supporting researchers are needed.
+	- The leader approves and enacts supporting-researcher scaling after reviewing the Researcher recommendation.
 - The leader assumes a 100K total input ceiling per research-role agent and uses a smaller practical payload budget when assigning parallel research.
 - The leader must make stage ownership visible so the user can tell which work was done by the leader and which work was done by a subagent.
 - The leader must not describe a stage as delegated unless a subagent actually returned a usable result for that stage.
