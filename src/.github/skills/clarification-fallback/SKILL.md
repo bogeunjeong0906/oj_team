@@ -23,9 +23,9 @@ Use this skill when the request contains ambiguity that could materially change 
 
 ## Authority and Routing
 
-- Only the Leader asks the user directly.
-- Researcher, Planner, Builder, and Reviewer surface blocking ambiguities to the Leader.
-- Subagents must include a recommended default path so the Leader can decide whether a user question is actually necessary.
+- In the current TAS-only workspace, TAS asks the user directly when clarification is genuinely required.
+- If a future multi-agent workflow is restored, non-user-facing agents should surface blocking ambiguities to the user-facing coordinator instead of asking directly.
+- Always include a recommended default path so one clarification round is enough.
 
 ## Fallback Order
 
