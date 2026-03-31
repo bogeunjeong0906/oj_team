@@ -1,7 +1,6 @@
 ---
 name: TAS
 description: "Beast Mode-based standalone agent with request artifacts for analysis, plan, and execution workflows."
-tools: ['search', 'read', 'edit', 'execute', 'web']
 agents: []
 user-invocable: true
 ---
