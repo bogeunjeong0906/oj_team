@@ -4,13 +4,15 @@
 
 - Beast Mode는 외부 특권 계층의 단독 에이전트다.
 - Leader 기반 팀 워크플로우는 내부 오케스트레이션 계층이다.
+- TAS는 request artifact를 사용하는 단독 직렬 모드 에이전트다.
 
-이 구분 때문에 Beast Mode는 request 생성 규칙을 따르지 않고, 내부 팀만 docs/agent_docs/request_XXXX 구조를 사용한다.
+이 구분 때문에 Beast Mode는 request 생성 규칙을 따르지 않고, 내부 팀과 TAS만 docs/agent_docs/request_XXXX 구조를 사용한다.
 
 ## 핵심 원칙
 
 - Beast Mode는 자신의 agent 파일만 운영 기준으로 삼는다.
 - Beast Mode는 스스로 작업할 때 활성 request를 만들지 않는다.
+- TAS는 단독 에이전트이지만 request artifact를 사용한다.
 - 내부 팀 워크플로우는 request artifact를 사용하되, 저장소를 다른 프로젝트에 이식할 때는 활성 request 폴더를 남기지 않는다.
 - 리더는 직접 연구하지 않고, Researcher가 연구 단계를 소유한다.
 - Subresearcher는 필요할 때만 병렬 조사 슬라이스를 맡고, 최종 연구 산출물은 항상 Researcher가 합성한다.
@@ -25,6 +27,7 @@
 .github/
   agents/
     beastmode.agent.md
+    tas.agent.md
     leader.agent.md
     researcher.agent.md
     subresearcher-01.agent.md
@@ -37,6 +40,7 @@
     markdown-docs.instructions.md
     orchestration.instructions.md
     role-boundaries.instructions.md
+    tas-workflow.instructions.md
   prompts/
     create-next-request.prompt.md
   skills/
@@ -48,6 +52,10 @@
     request-artifact-management/
     request-id-allocation/
     researcher-scaling/
+    tas-action-mode/
+    tas-mode-router/
+    tas-plan-mode/
+    tas-research-mode/
 docs/
   agent_docs/
     request_0000/
@@ -74,9 +82,18 @@ docs/
 - Reviewer가 필요 시 독립 검토 게이트를 제공한다.
 - Researcher가 연구 payload와 컨텍스트 부담을 먼저 계산하고, Leader는 그 추천을 승인해 실제 지원 연구자를 활성화한다.
 
+### 3. TAS
+
+- 단독 에이전트다.
+- docs/agent_docs/request_XXXX를 자신의 실행 산출물로 사용한다.
+- research, plan, action의 3개 mode로 작업한다.
+- mode는 병렬로 섞지 않고 직렬로 처리한다.
+- 한 턴에 여러 mode를 끝낼 수는 있지만, 항상 research 완료 후 plan, plan 완료 후 action 순서만 허용된다.
+- action 단계가 구현, 검증, self-review, report.md 작성을 함께 담당한다.
+
 ## Request 모델
 
-- request artifact 규칙은 내부 팀 워크플로우에만 적용된다.
+- request artifact 규칙은 내부 팀 워크플로우와 TAS에 적용된다.
 - `request_0000`은 공식 템플릿이자 예시 패키지다.
 - 내부 활성 작업은 `request_0001`부터 시작한다.
 - 같은 1차 목표를 계속 다듬는 후속 수정은 같은 request 번호를 재사용한다.
@@ -100,6 +117,12 @@ docs/agent_docs/request_XXXX/
 
 작업 범위가 작으면 `research1.md`, `research2.md`는 생략할 수 있다.
 
+TAS 기본 흐름은 아래 3개 산출물을 사용한다.
+
+- `research.md`: 조사 결과와 구현 경계
+- `plan.md`: 직렬 실행 계획과 검증 계획
+- `report.md`: 구현 결과, 검증 결과, self-review
+
 ## 역할 정의
 
 ### Beast Mode
@@ -107,6 +130,13 @@ docs/agent_docs/request_XXXX/
 - 외부 특권 계층 에이전트
 - request 비생성 원칙 유지
 - 필요 시 내부 오케스트레이션 파일을 수정 대상 콘텐츠로만 다룸
+
+### TAS
+
+- request를 생성하거나 재사용하는 단독 에이전트
+- research, plan, action mode를 하나씩 직렬 완료한다.
+- 필요 시 한 턴에 여러 mode를 수행해도 순서를 건너뛰지 않는다.
+- subagent에 의존하지 않고 자체적으로 request artifact를 갱신한다.
 
 ### Leader
 
@@ -152,6 +182,16 @@ docs/agent_docs/request_XXXX/
 10. Builder가 구현, Problems/lint 검증, self-review를 수행한다.
 11. 필요 시 Reviewer가 독립 검토를 수행한다.
 12. Leader가 Execution Ledger와 함께 사용자에게 보고한다.
+
+## TAS 표준 워크플로우
+
+1. TAS가 context preflight를 수행한다.
+2. TAS가 request 재사용 또는 신규 할당을 결정한다.
+3. TAS가 research mode를 완료하고 research.md를 기록한다.
+4. TAS가 plan mode로 전환하고 plan.md를 기록한다.
+5. TAS가 action mode로 전환해 구현, 검증, self-review를 수행한다.
+6. TAS가 report.md에 실행 결과를 기록한다.
+7. 후속 수정이 들어오면 기존 request를 재사용하되 필요 시 research 또는 plan으로 롤백한다.
 
 ## Python 실행 규칙
 

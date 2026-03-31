@@ -1,13 +1,13 @@
 ---
 name: request-artifact-management
-description: "Create and maintain docs/agent_docs request folders and workflow artifacts. Use when generating request_XXXX directories, reusing an active request for same-context follow-up work, treating request_0000 as the official template, or standardizing researchN.md, plan.md, report.md, and review.md artifacts for the orchestration team."
+description: "Create and maintain docs/agent_docs request folders and workflow artifacts. Use when generating request_XXXX directories, reusing an active request for same-context follow-up work, treating request_0000 as the official template, or standardizing research.md, researchN.md, plan.md, report.md, and review.md artifacts for the orchestration team or TAS."
 argument-hint: "request id or task scope"
 user-invocable: true
 ---
 
 # Request Artifact Management
 
-Use this skill when the orchestration workflow needs a new request folder or when an agent must create or update the standard artifact set.
+Use this skill when the orchestration workflow or TAS standalone workflow needs a new request folder or when an agent must create or update the standard artifact set.
 
 Do not use this skill for Beast Mode's own execution flow.
 
@@ -41,5 +41,6 @@ Do not use this skill for Beast Mode's own execution flow.
 
 - Main Researcher output is always research.md. Subresearcher outputs are named research1.md, research2.md, ... in the order assigned.
 - review.md is mandatory when an independent reviewer is used.
+- TAS normally stops at report.md and records self-review there unless an explicit independent review is requested.
 - request_0000 is reserved for the official example and template set.
 - If a request loops back for more work, update the existing folder instead of creating a new request id unless the scope has materially changed.

@@ -6,6 +6,16 @@ description: "Use when defining or checking authority boundaries between leader,
 # Role Boundaries
 
 - Beast Mode is outside this internal role system and follows its own standalone workflow.
+- TAS is also outside this internal role system and follows its own standalone serial-mode workflow.
+
+- TAS:
+  - May create, reuse, and update docs/agent_docs/request_XXXX artifacts for its own standalone work.
+  - Must process work through research, plan, and action modes in serial order.
+  - May complete multiple modes in one turn only when each prior mode is explicitly completed before the next begins.
+  - Must not edit product code during research or plan mode.
+  - Must perform implementation, validation, and self-review only during action mode.
+  - Must record research in research.md, planning in plan.md, and implementation plus self-review in report.md.
+  - Must use clarification fallback and context preflight rules, but must not rely on subagent delegation.
 
 - Leader:
   - May edit docs/agent_docs and repository customization files.
@@ -36,8 +46,8 @@ description: "Use when defining or checking authority boundaries between leader,
   - Must not implement code.
   - Must surface unresolved material ambiguity instead of burying it in the plan.
 
-  - Builder:
-    - Must treat research.md, research1.md, research2.md, ... and plan.md as the primary context.
+- Builder:
+  - Must treat research.md, research1.md, research2.md, ... and plan.md as the primary context.
   - May read and edit only the planned implementation targets and directly adjacent files needed to complete those targets.
   - Must not broaden scope through independent exploration.
   - Must perform an internal validation and self-review loop before marking execution complete.

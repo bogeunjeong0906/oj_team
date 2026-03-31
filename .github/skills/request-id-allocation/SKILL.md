@@ -1,13 +1,13 @@
 ---
 name: request-id-allocation
-description: "Allocate or reuse docs/agent_docs request identifiers. Use when the leader must ignore request_0000, decide whether a follow-up belongs to the same active request, or assign the next active request number for materially new work."
+description: "Allocate or reuse docs/agent_docs request identifiers. Use when the leader or TAS must ignore request_0000, decide whether a follow-up belongs to the same active request, or assign the next active request number for materially new work."
 argument-hint: "current user task and active request context"
 user-invocable: true
 ---
 
 # Request ID Allocation
 
-Use this skill when the leader must decide whether to keep writing in an existing active request folder or start a new active request.
+Use this skill when the leader or TAS must decide whether to keep writing in an existing active request folder or start a new active request.
 
 Do not use this skill for Beast Mode's own execution flow.
 
