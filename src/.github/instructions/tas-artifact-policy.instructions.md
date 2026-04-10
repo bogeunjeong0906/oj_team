@@ -1,7 +1,7 @@
 ---
 name: TAS Artifact Policy
 description: "Use when TAS creates, updates, or reuses request artifacts for analysis, plan, and execution work while preserving prior context."
-applyTo: "docs/agent_docs/**/*.md"
+applyTo: ".github/agent_docs/**/*.md"
 ---
 
 # TAS Artifact Policy
@@ -9,8 +9,8 @@ applyTo: "docs/agent_docs/**/*.md"
 These rules apply to TAS request artifacts only.
 
 - Use request artifacts for non-trivial TAS work.
-- Store active work under `docs/agent_docs/request_XXXX/`.
-- Treat `docs/agent_docs/request_0000/` as the template package and never as active work.
+- Store active work under `.github/agent_docs/request_XXXX/`.
+- Treat `.github/agent_docs/request_0000/` as the template package and never as active work.
 - TAS uses exactly three canonical artifacts: `research.md`, `plan.md`, and `report.md`.
 - Default stage order is analysis, then plan, then execution.
 - Do not skip directly from analysis to execution.

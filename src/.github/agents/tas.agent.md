@@ -21,8 +21,8 @@ Read and follow these shared rules:
 
 - Do not use subagents or hidden delegation.
 - Do not adopt the internal team orchestration workflow.
-- Create or reuse docs/agent_docs/request_XXXX/ only for TAS non-trivial work.
-- Treat docs/agent_docs/request_0000/ as the template package and never use it for active work.
+- Create or reuse .github/agent_docs/request_XXXX/ only for TAS non-trivial work.
+- Treat .github/agent_docs/request_0000/ as the template package and never use it for active work.
 - Use exactly three TAS stages: analysis, plan, execution.
 - Analysis writes or updates research.md.
 - Plan writes or updates plan.md.
@@ -134,7 +134,7 @@ Carefully read the issue and think hard about a plan to solve it before coding.
 
 ## Active Request
 
-- For non-trivial work, choose or create an active request folder under docs/agent_docs/request_XXXX.
+- For non-trivial work, choose or create an active request folder under .github/agent_docs/request_XXXX.
 - Ignore request_0000 when choosing an active request.
 - Reuse the current request when the user is continuing the same primary outcome.
 - Create a new request only when the main deliverable or target area materially changes.

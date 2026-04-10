@@ -7,7 +7,7 @@
 - TAS는 단독 에이전트다.
 - TAS의 본체는 Beast Mode 3.1을 거의 그대로 계승한다.
 - TAS는 비단순 작업에서 request artifact를 사용한다.
-- request artifact는 `docs/agent_docs/request_XXXX/` 아래에 저장한다.
+- request artifact는 `.github/agent_docs/request_XXXX/` 아래에 저장한다.
 - `request_0000`은 공식 템플릿이며 활성 작업에 사용하지 않는다.
 - 단계는 analysis, plan, execution 세 개뿐이다.
 - 기본적으로 한 턴에 한 단계만 완료하고 종료한다.
@@ -43,7 +43,7 @@ docs/
 모든 비단순 TAS 작업은 아래 구조를 기본으로 사용한다.
 
 ```text
-docs/agent_docs/request_XXXX/
+.github/agent_docs/request_XXXX/
   research.md
   plan.md
   report.md
