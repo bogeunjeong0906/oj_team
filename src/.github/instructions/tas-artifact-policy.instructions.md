@@ -50,15 +50,25 @@ These rules apply to TAS request artifacts only.
 
 ### plan.md
 
-- Convert research output into ordered execution steps.
-- List target files, validation, completion criteria, and rollback triggers.
-- Preserve prior planning notes when refining the plan.
-- Keep actionable steps and validation notes in the user's request language.
+
+ - Convert research output into ordered execution steps.
+ - For large or complex plans, divide the plan into sequential slices (subtasks or phases). Each slice must have a clear order, and dependencies between slices must be explicitly described.
+ - Each slice should include:
+	 - Purpose and scope
+	 - Prerequisite slices (dependencies)
+	 - Target files and changes
+	 - Validation and completion criteria
+	 - Rollback triggers
+ - When executing, work proceeds slice-by-slice: implement, test, and commit each slice before moving to the next.
+ - If a slice fails validation, revise the plan before continuing.
+ - Preserve prior planning notes when refining the plan.
+ - Keep actionable steps and validation notes in the user's request language.
 
 ### report.md
 
 - Record what was implemented in the current execution stage.
-- Record validation and self-review.
+- For plans divided into slices, report each slice's execution separately: describe implementation, validation results, and any issues for each slice.
+- Record validation and self-review for each slice.
 - Record deviations from the plan and remaining issues.
 - Keep execution summaries and residual-risk notes in the user's request language.
 
