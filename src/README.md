@@ -7,6 +7,7 @@
 - TAS는 단독 에이전트다.
 - TAS의 본체는 Beast Mode 3.1을 거의 그대로 계승한다.
 - TAS는 비단순 작업에서 request artifact를 사용한다.
+- request artifact의 기준점은 `prompt.md`이며, 이후 analysis/plan/execution 산출물은 이를 기준으로 정렬한다.
 - request artifact는 `.github/agent_docs/request_XXXX/` 아래에 저장한다.
 - `request_0000`은 공식 템플릿이며 활성 작업에 사용하지 않는다.
 - 단계는 analysis, plan, execution 세 개뿐이다.
@@ -15,6 +16,8 @@
 - artifact 기본 언어는 사용자의 요청 언어를 따른다.
 - 후속 수정이나 추가 연구를 하더라도 기존 artifact의 내용을 지우지 않고 누적 갱신한다.
 - 수정 전후 Problems 상태를 확인하고 Markdown과 customization 파일도 검증 대상에 포함한다.
+- TAS는 문제 해결 시 패턴 매칭보다 이벤트 체인 기반 트러블슈팅을 우선한다.
+- `research-find`는 광범위 탐색 도구가 아니라, 실패 링크와 검색 목적이 정해진 뒤 좁게 사용하는 보조 장치다.
 
 ## 현재 구조
 
@@ -28,13 +31,17 @@
   skills/
     clarification-fallback/
     context-preflight/
+    event-chain-troubleshooting/
     git-commit-workflow/
     python-execution-environment/
     problems-lint-gate/
+    research-find/
 docs/
   agent_docs/
     request_0000/
 ```
+
+실제 템플릿 경로는 `.github/agent_docs/request_0000/` 이다.
 
 이외의 예전 team orchestration 관련 파일은 삭제하지 않고 루트 `ref/` 아래로 이동해 보관한다.
 
@@ -44,11 +51,13 @@ docs/
 
 ```text
 .github/agent_docs/request_XXXX/
+  prompt.md
   research.md
   plan.md
   report.md
 ```
 
+- `prompt.md`: 사용자 요구사항, 제약, 완료 기준을 정리한 주문명세서
 - `research.md`: 분석 결과, 구현 경계, 후속 연구 누적 기록
 - `plan.md`: 실행 계획, 검증 계획, 계획 변경 이력
 - `report.md`: 이번 실행 결과, 검증, self-review, 잔여 이슈
@@ -56,10 +65,11 @@ docs/
 ## TAS 표준 흐름
 
 1. TAS가 활성 request를 재사용할지 새로 만들지 결정한다.
-2. analysis 단계에서 필요한 조사만 수행하고 `research.md`를 갱신한다.
-3. plan 단계에서 `research.md`를 읽고 `plan.md`를 갱신한다.
-4. execution 단계에서 `research.md`와 `plan.md`를 읽고 구현, 검증, self-review 후 `report.md`를 갱신한다.
-5. 후속 수정이 들어오면 같은 request를 재사용하되 필요 시 plan 또는 analysis로 롤백한다.
+2. `prompt.md`에 현재 사용자 요구사항과 제약을 기준 문서로 정리하거나 갱신한다.
+3. analysis 단계에서 필요한 조사만 수행하고 `research.md`를 갱신한다.
+4. plan 단계에서 `prompt.md`와 `research.md`를 읽고 `plan.md`를 갱신한다.
+5. execution 단계에서 `prompt.md`, `research.md`, `plan.md`를 읽고 구현, 검증, self-review 후 `report.md`를 갱신한다.
+6. 후속 수정이 들어오면 같은 request를 재사용하되 필요 시 plan 또는 analysis로 롤백한다.
 
 ## 문서 보존 원칙
 
@@ -75,6 +85,13 @@ docs/
 
 - 작업 범위가 크면 시작 전에 working set 위험을 추정한다.
 - 위험이 높으면 working set을 줄이거나 artifact에 상태를 먼저 요약한다.
+
+### Event-Chain Troubleshooting
+
+- 문제를 성공 조건과 필수 프로세스 체인으로 먼저 분해한다.
+- 체인의 어느 링크가 깨졌는지 가설 하나와 가장 싼 검증 하나로 좁혀간다.
+- 트레이스백, 로그, 좁은 테스트, mock을 소스 대탐색보다 우선한다.
+- `research-find`는 실패 링크와 검색 목적이 정해진 뒤에만 사용한다.
 
 ### Clarification Fallback
 

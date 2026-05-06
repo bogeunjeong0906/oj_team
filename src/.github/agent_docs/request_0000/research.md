@@ -16,6 +16,25 @@
 - 구현 또는 수정에 필요한 로컬 코드베이스 사실
 - 필요 시 외부 문서나 레퍼런스
 
+## Target Success Condition
+
+- 이번 request가 성공으로 간주되는 최종 조건
+
+## Event Chain or Procedural Sequence
+
+- 성공을 위해 필요한 최소 절차 체인
+- 각 링크의 입력, 출력, 또는 관측 가능 신호
+
+## Current Failure Signal
+
+- 현재 보이는 실패, 이상 징후, 또는 미충족 조건
+- 어디까지는 정상으로 확인되었는지
+
+## Active Hypothesis and Cheapest Check
+
+- 현재 가장 유력한 로컬 가설 하나
+- 그 가설을 가장 싸게 반증할 수 있는 다음 확인 방법 하나
+
 ## Codebase Facts
 
 - 관련 파일과 경로
@@ -38,6 +57,7 @@
 - 아직 남아 있는 불확실성
 - 필요 시 사용자 확인이 필요한 지점
 - fallback으로 처리 가능한 항목
+- 현재 사용할 수 없는 환경 또는 외부 의존성
 
 ## Follow-up Research
 

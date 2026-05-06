@@ -10,6 +10,12 @@
 
 - 실행한 테스트, Problems 확인, lint, 수동 검증 결과
 
+## Chain Diagnosis Summary
+
+- 어떤 절차 체인 또는 링크를 확인했는지
+- 실제 실패 링크가 어디였는지 또는 아직 어디까지 좁혀졌는지
+- 사용한 가설과 검증이 무엇이었는지
+
 ## Self-Review Summary
 
 - 계획 대비 구현 일치 여부

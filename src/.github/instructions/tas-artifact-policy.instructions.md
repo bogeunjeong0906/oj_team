@@ -12,8 +12,10 @@ These rules apply to TAS request artifacts only.
 - Store active work under `.github/agent_docs/request_XXXX/`.
 - Treat `.github/agent_docs/request_0000/` as the template package and never as active work.
 - TAS uses exactly four canonical artifacts: `prompt.md`, `research.md`, `plan.md`, and `report.md`.
+- Keep `prompt.md` synchronized with the current user requirements before later-stage artifacts are updated.
 - Default stage order is analysis, then plan, then execution.
 - Do not skip directly from analysis to execution.
+- Read `prompt.md` before analysis, plan, or execution work when the request is non-trivial.
 - Read `research.md` before plan work.
 - Read both `research.md` and `plan.md` before execution work.
 - Write artifact prose in the user's request language unless the user explicitly asks for another language.
