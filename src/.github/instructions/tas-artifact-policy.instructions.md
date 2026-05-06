@@ -13,6 +13,7 @@ These rules apply to TAS request artifacts only.
 - Treat `.github/agent_docs/request_0000/` as the template package and never as active work.
 - TAS uses exactly four canonical artifacts: `prompt.md`, `research.md`, `plan.md`, and `report.md`.
 - Keep `prompt.md` synchronized with the current user requirements before later-stage artifacts are updated.
+- Artifact preservation rules do not justify preserving obsolete implementation paths in code.
 - Default stage order is analysis, then plan, then execution.
 - Do not skip directly from analysis to execution.
 - Read `prompt.md` before analysis, plan, or execution work when the request is non-trivial.
@@ -59,6 +60,8 @@ These rules apply to TAS request artifacts only.
 - Record the current summary, stable findings, implementation constraints, and open questions.
 - Keep follow-up research additive unless a finding is explicitly superseded.
 - Keep summary and conclusions readable in the user's request language.
+- For troubleshooting work, record the target success condition, event chain, current failure signal, one active hypothesis, and the cheapest discriminating check.
+- Do not treat troubleshooting analysis as complete while those fields are still vague.
 
 ### plan.md
 
@@ -69,12 +72,15 @@ These rules apply to TAS request artifacts only.
 	 - Purpose and scope
 	 - Prerequisite slices (dependencies)
 	 - Target files and changes
+	 - Replacement scope and deletion candidates
 	 - Validation and completion criteria
 	 - Rollback triggers
  - When executing, work proceeds slice-by-slice: implement, test, and commit each slice before moving to the next.
  - If a slice fails validation, revise the plan before continuing.
  - Preserve prior planning notes when refining the plan.
  - Keep actionable steps and validation notes in the user's request language.
+ - Validation planning should identify which event-chain links each test or check covers.
+ - When a change replaces an older implementation path, the plan should name which path will be removed and what exception would justify retaining it.
 
 ### report.md
 
@@ -83,6 +89,10 @@ These rules apply to TAS request artifacts only.
 - Record validation and self-review for each slice.
 - Record deviations from the plan and remaining issues.
 - Keep execution summaries and residual-risk notes in the user's request language.
+- Report which legacy or obsolete paths were removed.
+- If any legacy path remains, report why it remains, what still depends on it, and what condition should trigger later removal.
+- Report which event-chain links were actually validated by tests, mocks, fixtures, or direct execution checks.
+- Report whether the change reduced, preserved, or increased structural complexity.
 
 ## Completion Gate
 

@@ -6,9 +6,27 @@
 
 - 실제로 수정한 파일 목록
 
+## Files Removed or Simplified
+
+- 제거한 obsolete path 또는 단순화한 구조
+
+## Legacy Paths Retained
+
+- 남겨둔 레거시 경로
+- 유지 이유
+- 제거 트리거
+
 ## Validation
 
 - 실행한 테스트, Problems 확인, lint, 수동 검증 결과
+
+## Test Link Coverage
+
+- 실패 재현 테스트가 검증한 링크
+- 정상 경로 테스트가 검증한 링크
+- 경계 조건 테스트가 검증한 링크
+- 회귀 방지 테스트가 검증한 링크
+- mock 또는 fixture로 고정한 링크와 이유
 
 ## Chain Diagnosis Summary
 
@@ -21,6 +39,12 @@
 - 계획 대비 구현 일치 여부
 - 놓친 부분이 없는지에 대한 점검 결과
 - 필요 시 rollback 또는 follow-up 필요성
+
+## Complexity Impact
+
+- 활성 경로 수 변화: 감소 | 유지 | 증가
+- 새 helper, branch, shim 추가 여부
+- 제거된 구조가 무엇인지
 
 ## Deviations from the Plan
 

@@ -42,6 +42,11 @@ The agent should identify the smallest chain that explains the behavior, then wo
 7. If the hypothesis survives, repair the same slice and re-check.
 8. If the hypothesis fails, move one link closer to the real control point and repeat.
 
+## Planning Gate
+
+- For troubleshooting work, planning should not begin until the success condition, event chain, current failure signal, active hypothesis, and cheapest check are all explicit.
+- If any of those are still vague, stay in analysis.
+
 ## Evidence Priority
 
 Prefer evidence in this order when available:
@@ -83,3 +88,4 @@ When recording findings in `research.md`, prefer including:
 - active hypothesis
 - cheapest next check
 - assumptions or unavailable links
+- replacement or cleanup risk if the likely fix will supersede an existing path

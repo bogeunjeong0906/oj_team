@@ -5,7 +5,7 @@
 ## 핵심 원칙
 
 - TAS는 단독 에이전트다.
-- TAS의 본체는 Beast Mode 3.1을 거의 그대로 계승한다.
+- TAS의 본체는 Beast Mode 3.1을 기반으로 하지만, TAS v2에서는 실행 품질 게이트 중심으로 더 짧고 결정적인 구조를 지향한다.
 - TAS는 비단순 작업에서 request artifact를 사용한다.
 - request artifact의 기준점은 `prompt.md`이며, 이후 analysis/plan/execution 산출물은 이를 기준으로 정렬한다.
 - request artifact는 `.github/agent_docs/request_XXXX/` 아래에 저장한다.
@@ -18,27 +18,35 @@
 - 수정 전후 Problems 상태를 확인하고 Markdown과 customization 파일도 검증 대상에 포함한다.
 - TAS는 문제 해결 시 패턴 매칭보다 이벤트 체인 기반 트러블슈팅을 우선한다.
 - `research-find`는 광범위 탐색 도구가 아니라, 실패 링크와 검색 목적이 정해진 뒤 좁게 사용하는 보조 장치다.
+- 새 구현이 기존 경로를 대체하면 obsolete path 제거가 기본값이다.
+- 테스트는 통과 여부보다 어느 링크를 검증했는지 설명할 수 있어야 한다.
+- 구조 변경 후에는 활성 코드 경로 수가 줄었는지, 늘었는지를 점검한다.
 
 ## 현재 구조
 
 ```text
 .github/
+  agent_docs/
+    request_0000/
   agents/
     tas.agent.md
   instructions/
     markdown-docs.instructions.md
     tas-artifact-policy.instructions.md
+  note/
+  prompt/
   skills/
     clarification-fallback/
-    context-preflight/
+    complexity-gate/
+    customization-integrity-check/
     event-chain-troubleshooting/
     git-commit-workflow/
+    pytest-quality-gate/
     python-execution-environment/
     problems-lint-gate/
+    replacement-cleanup/
     research-find/
-docs/
-  agent_docs/
-    request_0000/
+  tools/
 ```
 
 실제 템플릿 경로는 `.github/agent_docs/request_0000/` 이다.
@@ -81,17 +89,32 @@ docs/
 
 ## 운영 가드레일
 
-### Context Preflight
-
-- 작업 범위가 크면 시작 전에 working set 위험을 추정한다.
-- 위험이 높으면 working set을 줄이거나 artifact에 상태를 먼저 요약한다.
-
 ### Event-Chain Troubleshooting
 
 - 문제를 성공 조건과 필수 프로세스 체인으로 먼저 분해한다.
 - 체인의 어느 링크가 깨졌는지 가설 하나와 가장 싼 검증 하나로 좁혀간다.
 - 트레이스백, 로그, 좁은 테스트, mock을 소스 대탐색보다 우선한다.
 - `research-find`는 실패 링크와 검색 목적이 정해진 뒤에만 사용한다.
+
+### Replacement Cleanup
+
+- 새 구현이 기존 구현을 대체하면 구 경로 제거를 기본값으로 삼는다.
+- 제거하지 않는 레거시 경로는 이유, 의존 경로, 제거 조건을 기록한다.
+
+### Pytest Quality Gate
+
+- 테스트는 실패 재현, 정상 경로, 경계 조건, 회귀 방지 관점에서 최소 세트를 갖춰야 한다.
+- mock이나 fixture를 쓰는 경우에도 어떤 링크를 고정하고 어떤 링크를 검증하는지 분명해야 한다.
+
+### Complexity Gate
+
+- 병렬 구현, 중복 분기, 과도한 shim을 예외적인 상황으로 취급한다.
+- 변경 후 활성 경로 수와 구조 복잡도가 줄었는지 확인한다.
+
+### Customization Integrity Check
+
+- README, agent, skills, instructions 사이의 참조 드리프트를 정기적으로 확인한다.
+- 구조 변경 후에는 내부 링크와 asset 경로의 존재 여부를 검증한다.
 
 ### Clarification Fallback
 

@@ -1,40 +1,39 @@
-# grep 검색 템플릿 모음
+# research-find 검색 템플릿 모음
 
-## 1. 전체 폴더에서 키워드 검색
+## 1. traceback 또는 예외 원인 찾기
 ```sh
-grep -rn '키워드' .
+rg -n 'ExceptionName|function_name|error message' .
 ```
 
-## 2. 여러 키워드 동시 검색
+## 2. 특정 링크의 입출력 경로 찾기
 ```sh
-grep -rn 'foo\|bar\|baz' .
+rg -n 'acquire|load|store|save|render' src
 ```
 
-## 3. 특정 확장자만 검색
+## 3. 특정 심볼의 controlling path 찾기
 ```sh
-grep -rn --include='*.py' '키워드' .
+rg -n --glob '*.py' 'symbol_name' .
 ```
 
-## 4. 대소문자 구분 없이 검색
+## 4. 대체 후보 또는 중복 구현 찾기
 ```sh
-grep -rni '키워드' .
+rg -n 'new_path|old_path|legacy|deprecated|fallback' .
 ```
 
-## 5. 결과에서 파일명만 추출
+## 5. dead path 의심 경로만 파일명으로 보기
 ```sh
-grep -rl '키워드' .
+rg -l 'legacy|obsolete|deprecated|unused|fallback' .
 ```
 
-## 6. 검색 결과 줄 수 세기
+## 6. 특정 디렉터리와 확장자로 제한하기
 ```sh
-grep -r '키워드' . | wc -l
+rg -n --glob 'src/**/*.py' 'keyword' .
 ```
 
-## 7. 검색 결과 하이라이트
+## 7. 여러 신호를 한 번에 좁게 찾기
 ```sh
-grep --color=auto -rn '키워드' .
+rg -n 'foo|bar|baz' .
 ```
 
----
-- 복잡한 패턴은 정규표현식(egrep, grep -E) 활용
-- 필요시 find, awk, sed 등과 조합 가능
+- 너무 넓은 결과가 나오면 디렉터리, 파일 타입, 심볼 단위로 즉시 좁힌다.
+- 검색 결과는 다음 인접 코드 읽기나 검증으로 바로 연결한다.

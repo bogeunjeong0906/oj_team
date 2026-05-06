@@ -35,6 +35,16 @@
 - 현재 가장 유력한 로컬 가설 하나
 - 그 가설을 가장 싸게 반증할 수 있는 다음 확인 방법 하나
 
+## Validation Targets
+
+- 이후 plan이나 execution에서 어떤 링크를 검증해야 하는지
+- mock, fixture, trace, 직접 실행 중 어떤 방식이 적절한지
+
+## Replacement and Cleanup Risks
+
+- 이번 변경으로 obsolete path가 생길 가능성이 있는지
+- 정리해야 할 후보 경로가 무엇인지
+
 ## Codebase Facts
 
 - 관련 파일과 경로
@@ -58,6 +68,11 @@
 - 필요 시 사용자 확인이 필요한 지점
 - fallback으로 처리 가능한 항목
 - 현재 사용할 수 없는 환경 또는 외부 의존성
+
+## Analysis Completion Gate
+
+- 트러블슈팅 작업이라면 success condition, event chain, current failure signal, active hypothesis, cheapest check가 모두 구체적으로 기록되어야 한다.
+- 위 항목이 비어 있거나 추상적이면 plan 단계로 넘어가지 않는다.
 
 ## Follow-up Research
 

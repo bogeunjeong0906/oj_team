@@ -27,6 +27,12 @@
 - 검증 방법
 - 완료 기준
 
+## Replacement Scope and Cleanup Expectations
+
+- 무엇을 대체하는 작업인지
+- 제거 가능한 레거시 경로가 무엇인지
+- 유지가 필요한 호환성 경로가 있는지
+
 ## Execution Limits and Allowed Fallbacks
 
 - 현재 환경에서 직접 실행 불가능한 것
