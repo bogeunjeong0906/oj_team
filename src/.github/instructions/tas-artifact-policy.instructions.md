@@ -11,7 +11,7 @@ These rules apply to TAS request artifacts only.
 - Use request artifacts for non-trivial TAS work.
 - Store active work under `.github/agent_docs/request_XXXX/`.
 - Treat `.github/agent_docs/request_0000/` as the template package and never as active work.
-- TAS uses exactly three canonical artifacts: `research.md`, `plan.md`, and `report.md`.
+- TAS uses exactly four canonical artifacts: `prompt.md`, `research.md`, `plan.md`, and `report.md`.
 - Default stage order is analysis, then plan, then execution.
 - Do not skip directly from analysis to execution.
 - Read `research.md` before plan work.
@@ -41,6 +41,16 @@ These rules apply to TAS request artifacts only.
 - If the user switches languages mid-request, preserve prior content and write new or revised prose in the latest user-request language unless the user asks for a full translation pass.
 
 ## Stage Expectations
+
+### prompt.md
+
+- Summarizes the user's requirements as an order specification (주문명세서).
+- Serves as the authoritative source for the user's intent, goals, and constraints.
+- All subsequent artifacts (`research.md`, `plan.md`, `report.md`) must align with the requirements and context defined in `prompt.md`.
+- Revise `prompt.md` only when the user's requirements change materially; otherwise, preserve the original as the baseline.
+- If requirements are clarified or expanded, append or annotate rather than overwrite prior content.
+- Write in the user's request language, maintaining clarity and traceability to the original user input.
+
 
 ### research.md
 
